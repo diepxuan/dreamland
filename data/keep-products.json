@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "products": [
+    "hqb-05",
+    "goi-om-mat-ca-ngua",
+    "gm-06",
+    "cm28"
+  ],
+  "decided_at": "2026-11-25",
+  "reason": "4 SP không còn trên nguồn dreamland.vn nhưng anh quyết GIỮ LẠI trên web (25/11/2026). Sync giữ nguyên dữ liệu + ảnh cũ của các SP này; nếu nguồn có lại SP nào thì cào mới như thường.",
+  "note": "Muốn giữ thêm SP nào thì thêm id (slug) vào danh sách products — không cần sửa code. Muốn gỡ SP khỏi danh sách thì xóa id khỏi đây, lần sync sau sẽ gỡ SP đó khỏi catalog như thường. File này được scrape-full.mjs đọc mỗi lần sync (cả --full lẫn tăng dần)."
+}

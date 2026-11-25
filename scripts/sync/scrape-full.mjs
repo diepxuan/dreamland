@@ -19,6 +19,7 @@
 //   2 file này chỉ dùng trong lúc chạy — workflow xoá trước khi mở PR.
 // Không tải ảnh — chỉ ghi source_url + src dự kiến (workflow sync tải sau).
 // Quy tắc gộp SP trùng (quyết của anh 25/11/2026): xem MERGED_PRODUCTS.
+// SP giữ lại dù không còn trên nguồn (quyết của anh 25/11/2026): xem data/keep-products.json.
 // SP giá 0 được phép: xem data/zero-price-allowed.json (71 SP hàng trưng bày).
 // Node 18+ (dùng fetch toàn cục), không cần cài thêm thư viện.
 
@@ -36,6 +37,7 @@ const JSONL_FILE = resolve(ROOT, 'data', 'products.full.jsonl');
 const DISCOVERY_FILE = resolve(ROOT, 'data', 'discovery.json');
 const STATE_FILE = resolve(ROOT, 'data', 'sync-state.json');
 const ALLOWLIST_FILE = resolve(ROOT, 'data', 'zero-price-allowed.json');
+const KEEP_FILE = resolve(ROOT, 'data', 'keep-products.json');
 const DELAY_MS = 150; // nghỉ giữa các lần gọi API
 const CONCURRENCY = 5; // số lần gọi biến thể chạy song song
 const TIMEOUT_MS = 30000;
@@ -252,6 +254,48 @@ const MERGED_PRODUCTS = [
     reason: 'Trùng tên + trùng giá 4.260.000đ; ảnh gộp 4 + 5 = 9 ảnh.',
   },
 ];
+
+// ---------- 2d. giữ SP theo data/keep-products.json ----------
+// Quyết của anh 25/11/2026: 4 SP không còn trên nguồn (hqb-05,
+// goi-om-mat-ca-ngua, gm-06, cm28) vẫn giữ trên web. File keep-products.json
+// là danh sách id cần giữ — muốn giữ thêm SP nào thì thêm id vào đó, không
+// cần sửa code. Trả về [] nếu file thiếu/hỏng — sync chạy như cũ.
+function loadKeptSlugs(keepFile) {
+  try {
+    const raw = JSON.parse(readFileSync(keepFile, 'utf8'));
+    const list = raw.products ?? raw.kept ?? raw;
+    if (!Array.isArray(list)) return [];
+    return [...new Set(list.filter((s) => typeof s === 'string' && s))];
+  } catch {
+    return [];
+  }
+}
+
+// Chèn các SP trong keep-list (không còn trên nguồn) từ products.json cũ
+// vào `out`, đúng vị trí cũ để giữ thứ tự catalog. Trả về danh sách slug
+// đã khôi phục. SP nào nguồn có lại thì đã nằm trong `out` (bản mới),
+// không chèn lại bản cũ. SP trong keep-list mà không có trong file cũ
+// thì ghi vào `skipped` (cảnh báo, không fail).
+function restoreKeptProducts(out, oldBySlug, oldOrder, keptSlugs) {
+  const restored = [];
+  const outSlugs = new Set(out.map((p) => p.slug));
+  for (const slug of oldOrder) {
+    if (!keptSlugs.includes(slug)) continue;
+    if (outSlugs.has(slug)) continue;
+    const old = oldBySlug.get(slug);
+    if (!old) continue;
+    const before = oldOrder.slice(0, oldOrder.indexOf(slug)).filter((s) => outSlugs.has(s)).length;
+    out.splice(before, 0, old);
+    outSlugs.add(slug);
+    restored.push(slug);
+  }
+  for (const slug of keptSlugs) {
+    if (!oldBySlug.has(slug) && !outSlugs.has(slug)) {
+      skipped.push(`keep-list: ${slug} không có trong products.json cũ — không khôi phục được`);
+    }
+  }
+  return restored;
+}
 
 function applyMerges(products, prevMerged = []) {
   // Gộp SP trùng theo MERGED_PRODUCTS. Phải chạy đúng qua nhiều lần sync:
@@ -627,6 +671,23 @@ async function main() {
   }
   const prevBySlug = new Map(prevProducts.map((p) => [p.slug, p]));
 
+  // SP giữ lại theo keep-list: đọc riêng products.json + sync-state cũ.
+  // Chạy --full không nạp prevProducts/prevModified nên không dùng lại
+  // 2 biến đó được; chạy tăng dần thì đọc lại cùng 2 file (rẻ, 1 lần).
+  const keptSlugs = loadKeptSlugs(KEEP_FILE);
+  let oldBySlug = new Map();
+  let oldOrder = [];
+  let oldModified = {};
+  if (keptSlugs.length) {
+    try {
+      const rawOld = JSON.parse(readFileSync(OUT_FILE, 'utf8'));
+      const oldProducts = Array.isArray(rawOld) ? rawOld : rawOld.products ?? [];
+      oldBySlug = new Map(oldProducts.map((p) => [p.slug, p]));
+      oldOrder = oldProducts.map((p) => p.slug);
+    } catch { /* không có file cũ: keep-list không khôi phục được */ }
+    try { oldModified = JSON.parse(readFileSync(STATE_PATH, 'utf8')).product_modified ?? {}; } catch { /* bỏ qua */ }
+  }
+
   // Tính danh sách cần cào lại.
   // SP bị gộp (absorbed) không còn riêng trong products.json — không tính
   // là "SP mới" chỉ vì vắng mặt; chỉ cào lại khi modified của nó đổi.
@@ -724,6 +785,15 @@ async function main() {
   for (const p of prevBySlug.values()) {
     if (!discovery.products.some((d) => d.slug === p.slug)) removed.push(p.slug);
   }
+  // SP trong keep-list: giữ lại từ products.json cũ (dữ liệu + ảnh cũ).
+  // `removed` chỉ tính SP bị gỡ thật (keep-list đã khôi phục thì không tính).
+  const keptRestored = restoreKeptProducts(out, oldBySlug, oldOrder, keptSlugs);
+  if (keptRestored.length) {
+    console.log(`- SP giữ lại theo keep-list (không còn trên nguồn): ${keptRestored.join(', ')}`);
+    for (let i = removed.length - 1; i >= 0; i--) {
+      if (keptRestored.includes(removed[i])) removed.splice(i, 1);
+    }
+  }
   if (removed.length) console.log(`- SP không còn trên nguồn (bỏ khỏi catalog): ${removed.join(', ')}`);
 
   // Gộp SP trùng theo quyết của anh (dùng snapshot ảnh đã gộp lần trước
@@ -780,6 +850,11 @@ async function main() {
     const nextModified = { ...modifiedMap };
     for (const slug of failedSlugs) {
       if (prevModified[slug] !== undefined) nextModified[slug] = prevModified[slug];
+    }
+    // SP giữ lại: giữ nguyên modified cũ để lần sau còn vết (nguồn không
+    // trả modified cho SP này nữa nên không có trong modifiedMap).
+    for (const slug of keptRestored) {
+      if (oldModified[slug] !== undefined) nextModified[slug] = oldModified[slug];
     }
     const nextState = {
       schema_version: 1,
