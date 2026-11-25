@@ -261,6 +261,447 @@
     "status": "active"
   },
   {
+    "id": "hqb-05",
+    "sku": "HQB 05",
+    "slug": "hqb-05",
+    "name": "HQB 05",
+    "category_ids": [
+      "cotton-rayon-hqb",
+      "bo-suu-tap"
+    ],
+    "collection_ids": [],
+    "description": "Chi tiết các Dòng sản phẩm: Bộ Phủ: Gồm: 01 Ga Phủ 02 Vỏ gối nằm (45 x 65 cm) 01 Vỏ gối ôm (70 x 100 cm) 01 Chăn 4 mùa (210 x 230 cm) Bộ Drap Chun Chần: Gồm: 01 Ga Drap Chần 02 Vỏ gối nằm (45 x 65 cm) 01 Vỏ gối ôm (70 x 100 cm) 01 Chăn 4 mùa (210 x 230 cm)",
+    "attributes": {
+      "material": null,
+      "colors": [],
+      "pattern": null,
+      "pattern_type": null,
+      "origin": null,
+      "set_types": [],
+      "variation_axes": [
+        {
+          "name": "Bộ sản phẩm",
+          "values": [
+            "Bộ ga chun chần",
+            "Bộ Phủ",
+            "Chăn bốn mùa",
+            "Chăn hè",
+            "Ga chun",
+            "Ga chun chần",
+            "Ga phủ",
+            "Vỏ gối nằm",
+            "Vỏ gối ôm"
+          ]
+        },
+        {
+          "name": "Kích thước",
+          "values": [
+            "120 x 190",
+            "160 x 200",
+            "180 x 200",
+            "200 x 220",
+            "210 x 230 cm",
+            "45 x 65",
+            "70 x 100"
+          ]
+        }
+      ]
+    },
+    "variants": [
+      {
+        "sku": "HQB-05-GA-CHUN-160-X-200",
+        "size": "160 x 200",
+        "set_type": "Bộ sản phẩm Ga chun",
+        "price": {
+          "amount": 680000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 680000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-BO-PHU-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Bộ Phủ",
+        "price": {
+          "amount": 5160000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 5160000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-BO-PHU-180-X-200",
+        "size": "180 x 200",
+        "set_type": "Bộ sản phẩm Bộ Phủ",
+        "price": {
+          "amount": 4960000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 4960000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-BO-PHU-160-X-200",
+        "size": "160 x 200",
+        "set_type": "Bộ sản phẩm Bộ Phủ",
+        "price": {
+          "amount": 4860000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 4860000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-BO-GA-CHUN-CHAN-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Bộ ga chun chần",
+        "price": {
+          "amount": 4550000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 4550000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-BO-GA-CHUN-CHAN-180-X-200",
+        "size": "180 x 200",
+        "set_type": "Bộ sản phẩm Bộ ga chun chần",
+        "price": {
+          "amount": 4360000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 4360000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-BO-GA-CHUN-CHAN-160-X-200",
+        "size": "160 x 200",
+        "set_type": "Bộ sản phẩm Bộ ga chun chần",
+        "price": {
+          "amount": 4190000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 4190000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-PHU-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Ga phủ",
+        "price": {
+          "amount": 2190000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 2190000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-PHU-180-X-200",
+        "size": "180 x 200",
+        "set_type": "Bộ sản phẩm Ga phủ",
+        "price": {
+          "amount": 1990000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1990000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-PHU-160-X-200",
+        "size": "160 x 200",
+        "set_type": "Bộ sản phẩm Ga phủ",
+        "price": {
+          "amount": 1890000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1890000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-CHUN-CHAN-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Ga chun chần",
+        "price": {
+          "amount": 1580000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1580000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-CHUN-CHAN-180-X-200",
+        "size": "180 x 200",
+        "set_type": "Bộ sản phẩm Ga chun chần",
+        "price": {
+          "amount": 1390000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1390000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-CHUN-CHAN-160-X-200",
+        "size": "160 x 200",
+        "set_type": "Bộ sản phẩm Ga chun chần",
+        "price": {
+          "amount": 1220000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1220000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-CHUN-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Ga chun",
+        "price": {
+          "amount": 790000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 790000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-CHUN-180-X-200",
+        "size": "180 x 200",
+        "set_type": "Bộ sản phẩm Ga chun",
+        "price": {
+          "amount": 730000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 730000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-CHUN-160-X-200-V14130",
+        "size": "160 x 200",
+        "set_type": "Bộ sản phẩm Ga chun",
+        "price": {
+          "amount": 650000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 650000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-GA-CHUN-120-X-190",
+        "size": "120 x 190",
+        "set_type": "Bộ sản phẩm Ga chun",
+        "price": {
+          "amount": 650000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 650000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-VO-GOI-OM-70-X-100",
+        "size": "70 x 100",
+        "set_type": "Bộ sản phẩm Vỏ gối ôm",
+        "price": {
+          "amount": 320000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 320000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-VO-GOI-NAM-45-X-65",
+        "size": "45 x 65",
+        "set_type": "Bộ sản phẩm Vỏ gối nằm",
+        "price": {
+          "amount": 320000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 320000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-CHAN-HE-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Chăn hè",
+        "price": {
+          "amount": 1790000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1790000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "HQB-05-CHAN-BON-MUA-210-X-230-CM",
+        "size": "210 x 230 cm",
+        "set_type": "Bộ sản phẩm Chăn bốn mùa",
+        "price": {
+          "amount": 2010000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 2010000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      }
+    ],
+    "media": [
+      {
+        "type": "image",
+        "role": "cover",
+        "src": "assets/img/products/hqb-05/cover.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2026/11/HQB-05.1.jpg",
+        "alt": "HQB 05",
+        "width": null,
+        "height": null
+      },
+      {
+        "type": "image",
+        "role": "gallery",
+        "src": "assets/img/products/hqb-05/img-2.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2026/11/HQB-05.2.jpg",
+        "alt": "HQB 05",
+        "width": null,
+        "height": null
+      },
+      {
+        "type": "image",
+        "role": "gallery",
+        "src": "assets/img/products/hqb-05/img-3.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2026/11/HQB-05.4.jpg",
+        "alt": "HQB 05",
+        "width": null,
+        "height": null
+      },
+      {
+        "type": "image",
+        "role": "gallery",
+        "src": "assets/img/products/hqb-05/img-4.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2026/11/HQB-05.3.jpg",
+        "alt": "HQB 05",
+        "width": null,
+        "height": null
+      }
+    ],
+    "price": {
+      "amount": 320000,
+      "currency": "VND"
+    },
+    "compare_at_price": {
+      "amount": 320000,
+      "currency": "VND"
+    },
+    "discount_percent": 0,
+    "local_override": null,
+    "source": {
+      "site": "dreamland.vn",
+      "url": "https://dreamland.vn/san-pham/hqb-05",
+      "updated_at": "2026-11-25"
+    },
+    "synced_at": "2026-11-25T06:31:16.091Z",
+    "status": "active"
+  },
+  {
     "id": "chan-giu-nhiet-3d-gn-11",
     "sku": "GN-11",
     "slug": "chan-giu-nhiet-3d-gn-11",
@@ -98789,6 +99230,106 @@
     "status": "active"
   },
   {
+    "id": "goi-om-mat-ca-ngua",
+    "sku": "N",
+    "slug": "goi-om-mat-ca-ngua",
+    "name": "Gối Ôm Mát Cá Ngựa",
+    "category_ids": [
+      "gau-bong",
+      "phu-kien"
+    ],
+    "collection_ids": [],
+    "description": "",
+    "attributes": {
+      "material": null,
+      "colors": [],
+      "pattern": null,
+      "pattern_type": null,
+      "origin": null,
+      "set_types": [],
+      "variation_axes": [
+        {
+          "name": "Kích thước",
+          "values": [
+            "Hồng: 120 cm",
+            "Xanh Dương: 120 cm"
+          ]
+        }
+      ]
+    },
+    "variants": [
+      {
+        "sku": "GOI-OM-MAT-CA-NGUA-HONG-120-CM",
+        "size": "Hồng: 120 cm",
+        "set_type": null,
+        "price": {
+          "amount": 980000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 980000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "GOI-OM-MAT-CA-NGUA-XANH-DUONG-120-CM",
+        "size": "Xanh Dương: 120 cm",
+        "set_type": null,
+        "price": {
+          "amount": 980000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 980000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      }
+    ],
+    "media": [
+      {
+        "type": "image",
+        "role": "cover",
+        "src": "assets/img/products/goi-om-mat-ca-ngua/cover.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2025/10/N01.jpg",
+        "alt": "Gối Ôm Mát Cá Ngựa",
+        "width": null,
+        "height": null
+      },
+      {
+        "type": "image",
+        "role": "gallery",
+        "src": "assets/img/products/goi-om-mat-ca-ngua/img-2.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2025/10/N02.jpg",
+        "alt": "Gối Ôm Mát Cá Ngựa",
+        "width": null,
+        "height": null
+      }
+    ],
+    "price": {
+      "amount": 980000,
+      "currency": "VND"
+    },
+    "compare_at_price": {
+      "amount": 980000,
+      "currency": "VND"
+    },
+    "discount_percent": 0,
+    "local_override": null,
+    "source": {
+      "site": "dreamland.vn",
+      "url": "https://dreamland.vn/san-pham/goi-om-mat-ca-ngua",
+      "updated_at": "2026-11-25"
+    },
+    "synced_at": "2026-11-25T06:52:24.687Z",
+    "status": "active"
+  },
+  {
     "id": "goi-om-mat-tho-hong-xinh-xan",
     "sku": "C05",
     "slug": "goi-om-mat-tho-hong-xinh-xan",
@@ -100352,6 +100893,132 @@
       "updated_at": "2026-11-25"
     },
     "synced_at": "2026-11-25T11:51:45.670Z",
+    "status": "active"
+  },
+  {
+    "id": "gm-06",
+    "sku": "GM-06",
+    "slug": "gm-06",
+    "name": "GM 06",
+    "category_ids": [
+      "chieu-dieu-hoa-5d-dreamland",
+      "phu-kien"
+    ],
+    "collection_ids": [],
+    "description": "",
+    "attributes": {
+      "material": null,
+      "colors": [],
+      "pattern": null,
+      "pattern_type": null,
+      "origin": null,
+      "set_types": [],
+      "variation_axes": [
+        {
+          "name": "Kích thước",
+          "values": [
+            "160 x 200",
+            "180 x 200",
+            "200 x 220"
+          ]
+        }
+      ]
+    },
+    "variants": [
+      {
+        "sku": "GM-06-160-X-200",
+        "size": "160 x 200",
+        "set_type": null,
+        "price": {
+          "amount": 1590000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1590000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "GM-06-180-X-200",
+        "size": "180 x 200",
+        "set_type": null,
+        "price": {
+          "amount": 1790000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1790000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "GM-06-200-X-220",
+        "size": "200 x 220",
+        "set_type": null,
+        "price": {
+          "amount": 2050000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 2050000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      }
+    ],
+    "media": [
+      {
+        "type": "image",
+        "role": "cover",
+        "src": "assets/img/products/gm-06/cover.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2025/08/GM-06.1-2.jpg",
+        "alt": "GM 06",
+        "width": null,
+        "height": null
+      },
+      {
+        "type": "image",
+        "role": "gallery",
+        "src": "assets/img/products/gm-06/img-2.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2025/08/GM-06.3.jpg",
+        "alt": "GM 06",
+        "width": null,
+        "height": null
+      },
+      {
+        "type": "image",
+        "role": "gallery",
+        "src": "assets/img/products/gm-06/img-3.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2025/08/GM-06.2-1.jpg",
+        "alt": "GM 06",
+        "width": null,
+        "height": null
+      }
+    ],
+    "price": {
+      "amount": 1590000,
+      "currency": "VND"
+    },
+    "compare_at_price": {
+      "amount": 1590000,
+      "currency": "VND"
+    },
+    "discount_percent": 0,
+    "local_override": null,
+    "source": {
+      "site": "dreamland.vn",
+      "url": "https://dreamland.vn/san-pham/gm-06",
+      "updated_at": "2026-11-25"
+    },
+    "synced_at": "2026-11-25T06:52:57.552Z",
     "status": "active"
   },
   {
@@ -109790,6 +110457,224 @@
       "updated_at": "2026-11-25"
     },
     "synced_at": "2026-11-25T11:54:53.335Z",
+    "status": "active"
+  },
+  {
+    "id": "cm28",
+    "sku": "CM – 28",
+    "slug": "cm28",
+    "name": "Chăn Mát 28",
+    "category_ids": [
+      "cm",
+      "bo-suu-tap",
+      "chan-mat-cm",
+      "chan-mat",
+      "chan"
+    ],
+    "collection_ids": [],
+    "description": "",
+    "attributes": {
+      "material": null,
+      "colors": [],
+      "pattern": null,
+      "pattern_type": null,
+      "origin": null,
+      "set_types": [],
+      "variation_axes": [
+        {
+          "name": "Bộ sản phẩm",
+          "values": [
+            "Bộ ga chun chần",
+            "Chăn Mát",
+            "Ga chun chần",
+            "Vỏ gối nằm"
+          ]
+        },
+        {
+          "name": "Kích thước",
+          "values": [
+            "150 x 200",
+            "160 x 200",
+            "180 x 200",
+            "200 x 220",
+            "45 x 65"
+          ]
+        }
+      ]
+    },
+    "variants": [
+      {
+        "sku": "CM28-BO-GA-CHUN-CHAN-160-X-200",
+        "size": "160 x 200",
+        "set_type": "Bộ sản phẩm Bộ ga chun chần",
+        "price": {
+          "amount": 1890000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1890000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "CM28-BO-GA-CHUN-CHAN-180-X-200",
+        "size": "180 x 200",
+        "set_type": "Bộ sản phẩm Bộ ga chun chần",
+        "price": {
+          "amount": 1990000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1990000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "CM28-BO-GA-CHUN-CHAN-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Bộ ga chun chần",
+        "price": {
+          "amount": 2290000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 2290000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "CM28-GA-CHUN-CHAN-160-X-200",
+        "size": "160 x 200",
+        "set_type": "Bộ sản phẩm Ga chun chần",
+        "price": {
+          "amount": 1450000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1450000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "CM28-GA-CHUN-CHAN-180-X-200",
+        "size": "180 x 200",
+        "set_type": "Bộ sản phẩm Ga chun chần",
+        "price": {
+          "amount": 1550000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1550000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "CM28-GA-CHUN-CHAN-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Ga chun chần",
+        "price": {
+          "amount": 1850000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1850000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "CM28-CHAN-MAT-150-X-200",
+        "size": "150 x 200",
+        "set_type": "Bộ sản phẩm Chăn Mát",
+        "price": {
+          "amount": 1660000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1660000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "CM28-CHAN-MAT-200-X-220",
+        "size": "200 x 220",
+        "set_type": "Bộ sản phẩm Chăn Mát",
+        "price": {
+          "amount": 1990000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 1990000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      },
+      {
+        "sku": "CM28-VO-GOI-NAM-45-X-65",
+        "size": "45 x 65",
+        "set_type": "Bộ sản phẩm Vỏ gối nằm",
+        "price": {
+          "amount": 220000,
+          "currency": "VND"
+        },
+        "compare_at_price": {
+          "amount": 220000,
+          "currency": "VND"
+        },
+        "discount_percent": 0,
+        "status": "active",
+        "stock": null
+      }
+    ],
+    "media": [
+      {
+        "type": "image",
+        "role": "cover",
+        "src": "assets/img/products/cm28/cover.webp",
+        "source_url": "https://dreamland.vn/wp-content/uploads/2025/08/CM-28.jpg",
+        "alt": "Chăn Mát 28",
+        "width": null,
+        "height": null
+      }
+    ],
+    "price": {
+      "amount": 220000,
+      "currency": "VND"
+    },
+    "compare_at_price": {
+      "amount": 220000,
+      "currency": "VND"
+    },
+    "discount_percent": 0,
+    "local_override": null,
+    "source": {
+      "site": "dreamland.vn",
+      "url": "https://dreamland.vn/san-pham/cm28",
+      "updated_at": "2026-11-25"
+    },
+    "synced_at": "2026-11-25T06:56:06.492Z",
     "status": "active"
   },
   {

@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T11:59:29.705Z",
+  "generated_at": "2026-11-25T13:49:34.285Z",
   "summary": {
-    "total": 1236,
-    "downloaded": 1236,
+    "total": 1246,
+    "downloaded": 1246,
     "skipped": 0,
-    "converted": 1236,
+    "converted": 1246,
     "fallback_original": 0,
     "failed": 0,
     "pruned": 0,
-    "bytes_total": 138296894,
+    "bytes_total": 139440644,
     "duration_ms": 167559,
     "failures": [],
     "warnings": []
@@ -14846,6 +14846,126 @@
       "role": "gallery",
       "sku": "dem-bong-cotton-dreamland-dl",
       "updated_at": "2026-11-25T11:59:29.704Z"
+    },
+    "assets/img/products/hqb-05/cover.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2026/11/HQB-05.1.jpg",
+      "local_path": "assets/img/products/hqb-05/cover.webp",
+      "sha256": "4d1773097da34a7546d432fa8a8acad54a4f5a4f3bf3a082a6d11ab28bbfe1f7",
+      "bytes": 115928,
+      "format": "webp",
+      "width": 1200,
+      "height": 1120,
+      "role": "cover",
+      "sku": "hqb-05",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/hqb-05/img-2.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2026/11/HQB-05.2.jpg",
+      "local_path": "assets/img/products/hqb-05/img-2.webp",
+      "sha256": "93d7b56ea9943ba163a48c71c53bcdceb79a7351abe9c4fd92d31335ae535f38",
+      "bytes": 114262,
+      "format": "webp",
+      "width": 1200,
+      "height": 1094,
+      "role": "gallery",
+      "sku": "hqb-05",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/hqb-05/img-3.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2026/11/HQB-05.4.jpg",
+      "local_path": "assets/img/products/hqb-05/img-3.webp",
+      "sha256": "74440d5052e1cfbc2048229953d930995f062149c69f69ca444142371cfc516d",
+      "bytes": 164074,
+      "format": "webp",
+      "width": 1200,
+      "height": 1644,
+      "role": "gallery",
+      "sku": "hqb-05",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/hqb-05/img-4.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2026/11/HQB-05.3.jpg",
+      "local_path": "assets/img/products/hqb-05/img-4.webp",
+      "sha256": "6f7adcd7b69f0814e7dab434e517ddf04bb71617a3ee482a1e12a9596325629e",
+      "bytes": 108870,
+      "format": "webp",
+      "width": 1200,
+      "height": 782,
+      "role": "gallery",
+      "sku": "hqb-05",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/goi-om-mat-ca-ngua/cover.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2025/10/N01.jpg",
+      "local_path": "assets/img/products/goi-om-mat-ca-ngua/cover.webp",
+      "sha256": "53066c8af643201181c540e55b24cfbfdb3f8951301cb312098a9b90ab239347",
+      "bytes": 75762,
+      "format": "webp",
+      "width": 800,
+      "height": 800,
+      "role": "cover",
+      "sku": "goi-om-mat-ca-ngua",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/goi-om-mat-ca-ngua/img-2.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2025/10/N02.jpg",
+      "local_path": "assets/img/products/goi-om-mat-ca-ngua/img-2.webp",
+      "sha256": "fe85411b3f029094c74928854c6c349f8d0527792db7ee9e6330065b948869eb",
+      "bytes": 71012,
+      "format": "webp",
+      "width": 800,
+      "height": 800,
+      "role": "gallery",
+      "sku": "goi-om-mat-ca-ngua",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/gm-06/cover.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2025/08/GM-06.1-2.jpg",
+      "local_path": "assets/img/products/gm-06/cover.webp",
+      "sha256": "b0e9e54279072cc994111a50b452ea798a4cf456eae06d972b2bfe36da5de333",
+      "bytes": 115050,
+      "format": "webp",
+      "width": 1200,
+      "height": 1200,
+      "role": "cover",
+      "sku": "gm-06",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/gm-06/img-2.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2025/08/GM-06.3.jpg",
+      "local_path": "assets/img/products/gm-06/img-2.webp",
+      "sha256": "9ab217cfaf0c34da88b2a6350995771f24682b25386e5e99ccd09fa1f248d6b2",
+      "bytes": 118152,
+      "format": "webp",
+      "width": 1200,
+      "height": 1330,
+      "role": "gallery",
+      "sku": "gm-06",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/gm-06/img-3.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2025/08/GM-06.2-1.jpg",
+      "local_path": "assets/img/products/gm-06/img-3.webp",
+      "sha256": "69193fad9ab0a9628729e989fcdbfd7854a1d9c3559e44a0d562d3b07492c492",
+      "bytes": 127118,
+      "format": "webp",
+      "width": 1200,
+      "height": 1200,
+      "role": "gallery",
+      "sku": "gm-06",
+      "updated_at": "2026-11-25T13:49:34.285Z"
+    },
+    "assets/img/products/cm28/cover.webp": {
+      "source_url": "https://dreamland.vn/wp-content/uploads/2025/08/CM-28.jpg",
+      "local_path": "assets/img/products/cm28/cover.webp",
+      "sha256": "2f5c10c59d3f01a507149e5b01b43eef0a9f39ec4317e7d7fddf55877afe43ce",
+      "bytes": 133522,
+      "format": "webp",
+      "width": 1200,
+      "height": 1200,
+      "role": "cover",
+      "sku": "cm28",
+      "updated_at": "2026-11-25T13:49:34.285Z"
     }
   }
 }
