@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "dreamlandvn.com",
+  "site_name": "dreamlandvn.com",
+  "brand": {
+    "owner": "DreamLand",
+    "distributor": "Công ty TNHH Điệp Xuân",
+    "note": "Thương hiệu DreamLand (dreamland.vn). Web bán hàng DreamLand của Công ty TNHH Điệp Xuân — nhà phân phối tại Quảng Bình, Quảng Trị."
+  },
+  "distributor": "Công ty TNHH Điệp Xuân",
+  "cta": {
+    "primary": "zalo",
+    "secondary": [
+      "hotline"
+    ]
+  },
+  "zalo": [
+    {
+      "label": "Zalo bán hàng 1",
+      "phone": "0911825151"
+    },
+    {
+      "label": "Zalo bán hàng 2",
+      "phone": "0363089565"
+    }
+  ],
+  "hours": {
+    "open": "07:30",
+    "close": "21:00",
+    "note": "Giờ mở cửa hằng ngày của cả 2 showroom (anh xác nhận 25/11/2026)."
+  },
+  "showroom": {
+    "address": "241 Trần Hưng Đạo, Đồng Hới, Quảng Bình",
+    "address_note": "241 và 243 là 2 gian liền kề đã thông nhau; dùng 241 làm địa chỉ chính.",
+    "city": "Đồng Hới",
+    "province": "Quảng Bình",
+    "serving": [
+      "Quảng Bình",
+      "Quảng Trị"
+    ]
+  },
+  "locations": [
+    {
+      "id": "tran-hung-dao",
+      "name": "Showroom Trần Hưng Đạo",
+      "address": "241 Trần Hưng Đạo, Đồng Hới, Quảng Bình",
+      "hours": "07:30–21:00",
+      "hours_note": "Mở cửa hằng ngày, theo Google Business Profile.",
+      "phone": "0363 089 565",
+      "rating": 4.7,
+      "reviews": 3,
+      "maps_url": "https://www.google.com/maps/search/?api=1&query=241%20Tr%E1%BA%A7n%20H%C6%B0ng%20%C4%90%E1%BA%A1o%2C%20%C4%90%E1%BB%93ng%20H%E1%BB%9Bi%2C%20Qu%E1%BA%A3ng%20B%C3%ACnh"
+    },
+    {
+      "id": "ly-thuong-kiet",
+      "name": "Showroom Lý Thường Kiệt — DreamLand",
+      "address": "110 Lý Thường Kiệt, Đồng Hới, Quảng Bình",
+      "hours": "07:30–21:00",
+      "hours_note": "Mở cửa hằng ngày, cùng giờ với showroom 241 Trần Hưng Đạo (anh xác nhận 25/11/2026).",
+      "phone": "0363 089 565",
+      "maps_url": "https://www.google.com/maps/search/?api=1&query=110%20L%C3%BD%20Th%C6%B0%E1%BB%9Dng%20Ki%E1%BB%87t%2C%20%C4%90%E1%BB%93ng%20H%E1%BB%9Bi%2C%20Qu%E1%BA%A3ng%20B%C3%ACnh"
+    }
+  ],
+  "price_policy": {
+    "local_override": null,
+    "source": "dreamland.vn"
+  }
+}

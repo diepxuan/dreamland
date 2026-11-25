@@ -1,0 +1,1029 @@
+{
+  "categories": [
+    {
+      "id": "dem-bong-my-dream-md",
+      "name": "Đệm Bông My Dream – MD",
+      "parent_id": "dem-bong-cac-loai",
+      "product_count_on_source": 1,
+      "slug": "dem-bong-my-dream-md",
+      "source_url": "https://dreamland.vn/dem/dem-bong-cac-loai/dem-bong-my-dream-md"
+    },
+    {
+      "id": "chan-dong-hanchon",
+      "name": "Chăn Đông Hanchon",
+      "parent_id": "chan-dong-luxury-dreamland",
+      "product_count_on_source": 8,
+      "slug": "chan-dong-hanchon",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland/chan-dong-hanchon"
+    },
+    {
+      "id": "mina-collection",
+      "name": "Mina Collection",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 5,
+      "slug": "mina-collection",
+      "source_url": "https://dreamland.vn/bo-suu-tap/mina-collection"
+    },
+    {
+      "id": "chan-lanh-han-quoc-lhq",
+      "name": "Chăn Lạnh Furi – LHQ",
+      "parent_id": "chan",
+      "product_count_on_source": 16,
+      "slug": "chan-lanh-han-quoc-lhq",
+      "source_url": "https://dreamland.vn/chan/chan-lanh-han-quoc-lhq"
+    },
+    {
+      "id": "tencel-luxury-mizu",
+      "name": "Tencel Luxury Mizu",
+      "parent_id": "tencel-luxury-maysumihjbtrd",
+      "product_count_on_source": 7,
+      "slug": "tencel-luxury-mizu",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-luxury-maysumihjbtrd/tencel-luxury-mizu"
+    },
+    {
+      "id": "dem-cao-su-thien-nhien-hoang-gia",
+      "name": "Đệm Cao su Thiên nhiên Hoàng Gia",
+      "parent_id": "dem-cao-su",
+      "product_count_on_source": 1,
+      "slug": "dem-cao-su-thien-nhien-hoang-gia",
+      "source_url": "https://dreamland.vn/dem/dem-cao-su/dem-cao-su-thien-nhien-hoang-gia"
+    },
+    {
+      "id": "dem-cao-su-thien-nhien-than-tre",
+      "name": "Đệm Cao su Thiên nhiên Than Tre",
+      "parent_id": "dem-cao-su",
+      "product_count_on_source": 1,
+      "slug": "dem-cao-su-thien-nhien-than-tre",
+      "source_url": "https://dreamland.vn/dem/dem-cao-su/dem-cao-su-thien-nhien-than-tre"
+    },
+    {
+      "id": "tencel-luxury-hanjin",
+      "name": "Tencel Luxury Hanjin",
+      "parent_id": "tencel-luxury-maysumihjbtrd",
+      "product_count_on_source": 11,
+      "slug": "tencel-luxury-hanjin",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-luxury-maysumihjbtrd/tencel-luxury-hanjin"
+    },
+    {
+      "id": "tencel-luxury-ba-tuoc",
+      "name": "Tencel Luxury Bá Tước",
+      "parent_id": "tencel-luxury-maysumihjbtrd",
+      "product_count_on_source": 2,
+      "slug": "tencel-luxury-ba-tuoc",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-luxury-maysumihjbtrd/tencel-luxury-ba-tuoc"
+    },
+    {
+      "id": "tencel-luxury-royal-dream",
+      "name": "Tencel Luxury Royal Dream",
+      "parent_id": "tencel-luxury-maysumihjbtrd",
+      "product_count_on_source": 13,
+      "slug": "tencel-luxury-royal-dream",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-luxury-maysumihjbtrd/tencel-luxury-royal-dream"
+    },
+    {
+      "id": "tencel-bamboo-tb-tencel-bamboo-tbtbsobol",
+      "name": "Tencel Bamboo TB",
+      "parent_id": "tencel-bamboo-tbtbsobol",
+      "product_count_on_source": 27,
+      "slug": "tencel-bamboo-tb-tencel-bamboo-tbtbsobol",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-bamboo-tbtbsobol/tencel-bamboo-tb-tencel-bamboo-tbtbsobol"
+    },
+    {
+      "id": "tencel-bamboo-tbs",
+      "name": "Tencel Bamboo TBS",
+      "parent_id": "tencel-bamboo-tbtbsobol",
+      "product_count_on_source": 5,
+      "slug": "tencel-bamboo-tbs",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-bamboo-tbtbsobol/tencel-bamboo-tbs"
+    },
+    {
+      "id": "tencel-bamboo-ob",
+      "name": "Tencel Bamboo OB",
+      "parent_id": "tencel-bamboo-tbtbsobol",
+      "product_count_on_source": 13,
+      "slug": "tencel-bamboo-ob",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-bamboo-tbtbsobol/tencel-bamboo-ob"
+    },
+    {
+      "id": "tencel-bamboo-ol",
+      "name": "Tencel Bamboo OL",
+      "parent_id": "tencel-bamboo-tbtbsobol",
+      "product_count_on_source": 6,
+      "slug": "tencel-bamboo-ol",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-bamboo-tbtbsobol/tencel-bamboo-ol"
+    },
+    {
+      "id": "tencel-rayon-mochi",
+      "name": "Tencel Rayon Mochi",
+      "parent_id": "tencel-rayon-mcmcs",
+      "product_count_on_source": 5,
+      "slug": "tencel-rayon-mochi",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-rayon-mcmcs/tencel-rayon-mochi"
+    },
+    {
+      "id": "tencel-rayon-mochi-solid",
+      "name": "Tencel Rayon Mochi Solid",
+      "parent_id": "tencel-rayon-mcmcs",
+      "product_count_on_source": 5,
+      "slug": "tencel-rayon-mochi-solid",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-rayon-mcmcs/tencel-rayon-mochi-solid"
+    },
+    {
+      "id": "cotton-linen-pct",
+      "name": "Cotton Linen PCT",
+      "parent_id": "cotton-linen-pctqd",
+      "product_count_on_source": 6,
+      "slug": "cotton-linen-pct",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-linen-pctqd/cotton-linen-pct"
+    },
+    {
+      "id": "cotton-linen-qd",
+      "name": "Cotton Linen QD",
+      "parent_id": "cotton-linen-pctqd",
+      "product_count_on_source": 12,
+      "slug": "cotton-linen-qd",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-linen-pctqd/cotton-linen-qd"
+    },
+    {
+      "id": "to-nhan-tao-amaii",
+      "name": "Tơ nhân tạo AMAII",
+      "parent_id": "to-nhan-tao-euamaii",
+      "product_count_on_source": 6,
+      "slug": "to-nhan-tao-amaii",
+      "source_url": "https://dreamland.vn/bo-suu-tap/to-nhan-tao-euamaii/to-nhan-tao-amaii"
+    },
+    {
+      "id": "tencel-hoang-gia-sh",
+      "name": "Tencel Hoàng Gia SH",
+      "parent_id": "tencel-hoang-gia-trsssh",
+      "product_count_on_source": 15,
+      "slug": "tencel-hoang-gia-sh",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-hoang-gia-trsssh/tencel-hoang-gia-sh"
+    },
+    {
+      "id": "to-nhan-tao-eu",
+      "name": "Tơ nhân tạo EU",
+      "parent_id": "to-nhan-tao-euamaii",
+      "product_count_on_source": 8,
+      "slug": "to-nhan-tao-eu",
+      "source_url": "https://dreamland.vn/bo-suu-tap/to-nhan-tao-euamaii/to-nhan-tao-eu"
+    },
+    {
+      "id": "tencel-hoang-gia-ss",
+      "name": "Tencel Hoàng Gia SS",
+      "parent_id": "tencel-hoang-gia-trsssh",
+      "product_count_on_source": 9,
+      "slug": "tencel-hoang-gia-ss",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-hoang-gia-trsssh/tencel-hoang-gia-ss"
+    },
+    {
+      "id": "tencel-luxury-may",
+      "name": "Tencel Luxury May",
+      "parent_id": "tencel-luxury-maysumihjbtrd",
+      "product_count_on_source": 12,
+      "slug": "tencel-luxury-may",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-luxury-maysumihjbtrd/tencel-luxury-may"
+    },
+    {
+      "id": "tencel-luxury-sumi",
+      "name": "Tencel Luxury Sumi",
+      "parent_id": "tencel-luxury-maysumihjbtrd",
+      "product_count_on_source": 8,
+      "slug": "tencel-luxury-sumi",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-luxury-maysumihjbtrd/tencel-luxury-sumi"
+    },
+    {
+      "id": "cotton-sapphire-sp-bo-suu-tap",
+      "name": "Cotton Sapphire (SP)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 5,
+      "slug": "cotton-sapphire-sp-bo-suu-tap",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-sapphire-sp-bo-suu-tap"
+    },
+    {
+      "id": "cotton-rayon-hqb",
+      "name": "Cotton Rayon (HQB)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 5,
+      "slug": "cotton-rayon-hqb",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-rayon-hqb"
+    },
+    {
+      "id": "cotton-linen-pctqd",
+      "name": "Cotton Linen (PCT,QD)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 19,
+      "slug": "cotton-linen-pctqd",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-linen-pctqd"
+    },
+    {
+      "id": "cotton-modal-moc-bo-suu-tap",
+      "name": "Cotton Modal (MOC)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 8,
+      "slug": "cotton-modal-moc-bo-suu-tap",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-modal-moc-bo-suu-tap"
+    },
+    {
+      "id": "cotton-xuat-khau-ds-bo-suu-tap",
+      "name": "Cotton Xuất Khẩu (DS)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 10,
+      "slug": "cotton-xuat-khau-ds-bo-suu-tap",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-xuat-khau-ds-bo-suu-tap"
+    },
+    {
+      "id": "cotton-bamboo-bb-bo-suu-tap",
+      "name": "Cotton Bamboo (BB)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 7,
+      "slug": "cotton-bamboo-bb-bo-suu-tap",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-bamboo-bb-bo-suu-tap"
+    },
+    {
+      "id": "to-nhan-tao-euamaii",
+      "name": "Tơ nhân tạo (EU,AMAII)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 14,
+      "slug": "to-nhan-tao-euamaii",
+      "source_url": "https://dreamland.vn/bo-suu-tap/to-nhan-tao-euamaii"
+    },
+    {
+      "id": "tencel-hoang-gia-trsssh",
+      "name": "Tencel Hoàng Gia (TR,SS,SH)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 54,
+      "slug": "tencel-hoang-gia-trsssh",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-hoang-gia-trsssh"
+    },
+    {
+      "id": "tencel-luxury-maysumihjbtrd",
+      "name": "Tencel Luxury (MAY,SUMI,MIZU,HJ,BT,RD)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 54,
+      "slug": "tencel-luxury-maysumihjbtrd",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-luxury-maysumihjbtrd"
+    },
+    {
+      "id": "tencel-bamboo-tbtbsobol",
+      "name": "Tencel Bamboo (TB,TBS,OB,OL)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 51,
+      "slug": "tencel-bamboo-tbtbsobol",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-bamboo-tbtbsobol"
+    },
+    {
+      "id": "tencel-rayon-mcmcs",
+      "name": "Tencel Rayon (MC,MCS)",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 10,
+      "slug": "tencel-rayon-mcmcs",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-rayon-mcmcs"
+    },
+    {
+      "id": "qd",
+      "name": "QD",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 12,
+      "slug": "qd",
+      "source_url": "https://dreamland.vn/bo-suu-tap/qd"
+    },
+    {
+      "id": "dem-foam-cooling-massage-kawaii",
+      "name": "Đệm Foam Cooling Massage Kawaii",
+      "parent_id": "dem-foam",
+      "product_count_on_source": 1,
+      "slug": "dem-foam-cooling-massage-kawaii",
+      "source_url": "https://dreamland.vn/dem/dem-foam/dem-foam-cooling-massage-kawaii"
+    },
+    {
+      "id": "mla",
+      "name": "MLA",
+      "parent_id": "mat-lanh-ml",
+      "product_count_on_source": 3,
+      "slug": "mla",
+      "source_url": "https://dreamland.vn/bo-suu-tap/mat-lanh-ml/mla"
+    },
+    {
+      "id": "gau-bong",
+      "name": "Gấu Bông",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 8,
+      "slug": "gau-bong",
+      "source_url": "https://dreamland.vn/phu-kien/gau-bong"
+    },
+    {
+      "id": "dem-chong-thoai-hoa-cot-song",
+      "name": "Đệm Chống Thoái Hoá Cột Sống",
+      "parent_id": "dem-bong-cac-loai",
+      "product_count_on_source": 2,
+      "slug": "dem-chong-thoai-hoa-cot-song",
+      "source_url": "https://dreamland.vn/dem/dem-bong-cac-loai/dem-chong-thoai-hoa-cot-song"
+    },
+    {
+      "id": "chan-furi-td",
+      "name": "Chăn Furi TD",
+      "parent_id": "chan-dong-luxury-dreamland",
+      "product_count_on_source": 4,
+      "slug": "chan-furi-td",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland/chan-furi-td"
+    },
+    {
+      "id": "chan-dong-vintage",
+      "name": "Chăn Đông Vintage",
+      "parent_id": "chan-dong-luxury-dreamland",
+      "product_count_on_source": 5,
+      "slug": "chan-dong-vintage",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland/chan-dong-vintage"
+    },
+    {
+      "id": "chan-he-vintage",
+      "name": "Chăn Hè Vintage",
+      "parent_id": "chan-he",
+      "product_count_on_source": 6,
+      "slug": "chan-he-vintage",
+      "source_url": "https://dreamland.vn/chan/chan-he/chan-he-vintage"
+    },
+    {
+      "id": "mochi-solid",
+      "name": "MOCHI SOLID",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 5,
+      "slug": "mochi-solid",
+      "source_url": "https://dreamland.vn/bo-suu-tap/mochi-solid"
+    },
+    {
+      "id": "cm",
+      "name": "CM",
+      "parent_id": "chan-mat-cm",
+      "product_count_on_source": 25,
+      "slug": "cm",
+      "source_url": "https://dreamland.vn/bo-suu-tap/chan-mat-cm/cm"
+    },
+    {
+      "id": "cm-a",
+      "name": "CM-A",
+      "parent_id": "chan-mat-cm",
+      "product_count_on_source": 7,
+      "slug": "cm-a",
+      "source_url": "https://dreamland.vn/bo-suu-tap/chan-mat-cm/cm-a"
+    },
+    {
+      "id": "chan-he-thu-da-nang-han-quoc",
+      "name": "Chăn hè thu đa năng Hàn Quốc",
+      "parent_id": "chan-he",
+      "product_count_on_source": 1,
+      "slug": "chan-he-thu-da-nang-han-quoc",
+      "source_url": "https://dreamland.vn/chan/chan-he/chan-he-thu-da-nang-han-quoc"
+    },
+    {
+      "id": "chan-nhung-tuyet-thu-dong-ntd",
+      "name": "Chăn nhung tuyết thu đông NTD",
+      "parent_id": "chan-tuyet",
+      "product_count_on_source": 8,
+      "slug": "chan-nhung-tuyet-thu-dong-ntd",
+      "source_url": "https://dreamland.vn/chan/chan-tuyet/chan-nhung-tuyet-thu-dong-ntd"
+    },
+    {
+      "id": "chan-dong-tuyet-han-quoc-njp",
+      "name": "Chăn đông tuyết Hàn Quốc NJP",
+      "parent_id": "chan-tuyet",
+      "product_count_on_source": 4,
+      "slug": "chan-dong-tuyet-han-quoc-njp",
+      "source_url": "https://dreamland.vn/chan/chan-tuyet/chan-dong-tuyet-han-quoc-njp"
+    },
+    {
+      "id": "chan-long-chon",
+      "name": "Chăn lông chồn",
+      "parent_id": "chan-dong-luxury-dreamland",
+      "product_count_on_source": 8,
+      "slug": "chan-long-chon",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland/chan-long-chon"
+    },
+    {
+      "id": "chan-tuyet-thu-dong-fd",
+      "name": "Chăn tuyết thu đông FD",
+      "parent_id": "chan-tuyet",
+      "product_count_on_source": 4,
+      "slug": "chan-tuyet-thu-dong-fd",
+      "source_url": "https://dreamland.vn/chan/chan-tuyet/chan-tuyet-thu-dong-fd"
+    },
+    {
+      "id": "chan-tuyet-han-quoc-hq",
+      "name": "Chăn tuyết Hàn Quốc HQ",
+      "parent_id": "chan-tuyet",
+      "product_count_on_source": 12,
+      "slug": "chan-tuyet-han-quoc-hq",
+      "source_url": "https://dreamland.vn/chan/chan-tuyet/chan-tuyet-han-quoc-hq"
+    },
+    {
+      "id": "chan-furi",
+      "name": "Chăn Furi",
+      "parent_id": "chan-dong-luxury-dreamland",
+      "product_count_on_source": 13,
+      "slug": "chan-furi",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland/chan-furi"
+    },
+    {
+      "id": "chan-3d-giu-nhiet",
+      "name": "Chăn 3D giữ nhiệt",
+      "parent_id": "chan-dong-luxury-dreamland",
+      "product_count_on_source": 11,
+      "slug": "chan-3d-giu-nhiet",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland/chan-3d-giu-nhiet"
+    },
+    {
+      "id": "chan-long-tho",
+      "name": "Chăn lông thỏ",
+      "parent_id": "chan-dong-luxury-dreamland",
+      "product_count_on_source": 1,
+      "slug": "chan-long-tho",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland/chan-long-tho"
+    },
+    {
+      "id": "chan-long-chon-xuat-khau-my",
+      "name": "Chăn lông chồn xuất khẩu Mỹ",
+      "parent_id": "chan-dong-luxury-dreamland",
+      "product_count_on_source": 4,
+      "slug": "chan-long-chon-xuat-khau-my",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland/chan-long-chon-xuat-khau-my"
+    },
+    {
+      "id": "cotton-xuat-khau-ds",
+      "name": "COTTON XUẤT KHẨU-DS",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 10,
+      "slug": "cotton-xuat-khau-ds",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-xuat-khau-ds"
+    },
+    {
+      "id": "chan-mat-cm",
+      "name": "CHĂN MÁT-CM",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 41,
+      "slug": "chan-mat-cm",
+      "source_url": "https://dreamland.vn/bo-suu-tap/chan-mat-cm"
+    },
+    {
+      "id": "mat-lanh-ml",
+      "name": "MÁT LẠNH ML",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 32,
+      "slug": "mat-lanh-ml",
+      "source_url": "https://dreamland.vn/bo-suu-tap/mat-lanh-ml"
+    },
+    {
+      "id": "ba-tuoc-bt",
+      "name": "BÁ TƯỚC-BT",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 2,
+      "slug": "ba-tuoc-bt",
+      "source_url": "https://dreamland.vn/bo-suu-tap/ba-tuoc-bt"
+    },
+    {
+      "id": "bo-suu-tap",
+      "name": "Bộ sưu tập",
+      "parent_id": null,
+      "product_count_on_source": 326,
+      "slug": "bo-suu-tap",
+      "source_url": "https://dreamland.vn/bo-suu-tap"
+    },
+    {
+      "id": "cac-loai-ruot-chan",
+      "name": "Các loại ruột chăn",
+      "parent_id": null,
+      "product_count_on_source": 5,
+      "slug": "cac-loai-ruot-chan",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-chan"
+    },
+    {
+      "id": "cac-loai-ruot-goi",
+      "name": "Các loại ruột gối",
+      "parent_id": null,
+      "product_count_on_source": 22,
+      "slug": "cac-loai-ruot-goi",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi"
+    },
+    {
+      "id": "ruot-goi-nano-long-vu",
+      "name": "Ruột gối Nano lông vũ",
+      "parent_id": "cac-loai-ruot-goi",
+      "product_count_on_source": 2,
+      "slug": "ruot-goi-nano-long-vu",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi/ruot-goi-nano-long-vu"
+    },
+    {
+      "id": "chan",
+      "name": "Chăn",
+      "parent_id": null,
+      "product_count_on_source": 135,
+      "slug": "chan",
+      "source_url": "https://dreamland.vn/chan"
+    },
+    {
+      "id": "chan-he",
+      "name": "Chăn hè",
+      "parent_id": "chan",
+      "product_count_on_source": 7,
+      "slug": "chan-he",
+      "source_url": "https://dreamland.vn/chan/chan-he"
+    },
+    {
+      "id": "chan-tuyet",
+      "name": "Chăn tuyết",
+      "parent_id": "chan",
+      "product_count_on_source": 28,
+      "slug": "chan-tuyet",
+      "source_url": "https://dreamland.vn/chan/chan-tuyet"
+    },
+    {
+      "id": "chan-mat",
+      "name": "Chăn mát",
+      "parent_id": "chan",
+      "product_count_on_source": 25,
+      "slug": "chan-mat",
+      "source_url": "https://dreamland.vn/chan/chan-mat"
+    },
+    {
+      "id": "chan-dong-luxury-dreamland",
+      "name": "Chăn đông Luxury Dreamland",
+      "parent_id": "chan",
+      "product_count_on_source": 54,
+      "slug": "chan-dong-luxury-dreamland",
+      "source_url": "https://dreamland.vn/chan/chan-dong-luxury-dreamland"
+    },
+    {
+      "id": "royaldream-rd",
+      "name": "ROYAL DREAM-RD",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 13,
+      "slug": "royaldream-rd",
+      "source_url": "https://dreamland.vn/bo-suu-tap/royaldream-rd"
+    },
+    {
+      "id": "dem",
+      "name": "Đệm",
+      "parent_id": null,
+      "product_count_on_source": 19,
+      "slug": "dem",
+      "source_url": "https://dreamland.vn/dem"
+    },
+    {
+      "id": "dem-bong-cac-loai",
+      "name": "Đệm Bông các loại",
+      "parent_id": "dem",
+      "product_count_on_source": 8,
+      "slug": "dem-bong-cac-loai",
+      "source_url": "https://dreamland.vn/dem/dem-bong-cac-loai"
+    },
+    {
+      "id": "dem-bong-nano-chong-khuan-hq-m2",
+      "name": "Đệm Bông Nano Chống khuẩn HQ – M2",
+      "parent_id": "dem-bong-cac-loai",
+      "product_count_on_source": 1,
+      "slug": "dem-bong-nano-chong-khuan-hq-m2",
+      "source_url": "https://dreamland.vn/dem/dem-bong-cac-loai/dem-bong-nano-chong-khuan-hq-m2"
+    },
+    {
+      "id": "dem-bong-gam-chan-2-mat-hq-m2",
+      "name": "Đệm Bông gấm chần 2 mặt HQ – M2",
+      "parent_id": "dem-bong-cac-loai",
+      "product_count_on_source": 1,
+      "slug": "dem-bong-gam-chan-2-mat-hq-m2",
+      "source_url": "https://dreamland.vn/dem/dem-bong-cac-loai/dem-bong-gam-chan-2-mat-hq-m2"
+    },
+    {
+      "id": "dem-bong-cotton-pe-han-quoc-m3",
+      "name": "Đệm Bông Cotton – PE Hàn Quốc M3",
+      "parent_id": "dem-bong-cac-loai",
+      "product_count_on_source": 2,
+      "slug": "dem-bong-cotton-pe-han-quoc-m3",
+      "source_url": "https://dreamland.vn/dem/dem-bong-cac-loai/dem-bong-cotton-pe-han-quoc-m3"
+    },
+    {
+      "id": "dem-bong-cth-cot-song-m2-m3",
+      "name": "Đệm Bông CTH cột sống M2 & M3",
+      "parent_id": "dem-bong-cac-loai",
+      "product_count_on_source": 2,
+      "slug": "dem-bong-cth-cot-song-m2-m3",
+      "source_url": "https://dreamland.vn/dem/dem-bong-cac-loai/dem-bong-cth-cot-song-m2-m3"
+    },
+    {
+      "id": "dem-bong-gam-m3",
+      "name": "Đệm Bông Gấm – M3",
+      "parent_id": "dem-bong-cac-loai",
+      "product_count_on_source": 1,
+      "slug": "dem-bong-gam-m3",
+      "source_url": "https://dreamland.vn/dem/dem-bong-cac-loai/dem-bong-gam-m3"
+    },
+    {
+      "id": "dem-cao-su",
+      "name": "Đệm cao su",
+      "parent_id": "dem",
+      "product_count_on_source": 4,
+      "slug": "dem-cao-su",
+      "source_url": "https://dreamland.vn/dem/dem-cao-su"
+    },
+    {
+      "id": "dem-cao-su-nhap-khau",
+      "name": "Đệm cao su nhập khẩu",
+      "parent_id": "dem-cao-su",
+      "product_count_on_source": 1,
+      "slug": "dem-cao-su-nhap-khau",
+      "source_url": "https://dreamland.vn/dem/dem-cao-su/dem-cao-su-nhap-khau"
+    },
+    {
+      "id": "dem-cao-su-thien-nhien-tra-xanh",
+      "name": "Đệm Cao su Thiên nhiên Trà Xanh",
+      "parent_id": "dem-cao-su",
+      "product_count_on_source": 1,
+      "slug": "dem-cao-su-thien-nhien-tra-xanh",
+      "source_url": "https://dreamland.vn/dem/dem-cao-su/dem-cao-su-thien-nhien-tra-xanh"
+    },
+    {
+      "id": "dem-foam",
+      "name": "Đệm Foam",
+      "parent_id": "dem",
+      "product_count_on_source": 3,
+      "slug": "dem-foam",
+      "source_url": "https://dreamland.vn/dem/dem-foam"
+    },
+    {
+      "id": "dem-foam-chan-mat",
+      "name": "Đệm foam chần mặt",
+      "parent_id": "dem-foam",
+      "product_count_on_source": 1,
+      "slug": "dem-foam-chan-mat",
+      "source_url": "https://dreamland.vn/dem/dem-foam/dem-foam-chan-mat"
+    },
+    {
+      "id": "dem-foam-massage-kawaii",
+      "name": "Đệm Foam Massage Kawaii",
+      "parent_id": "dem-foam",
+      "product_count_on_source": 1,
+      "slug": "dem-foam-massage-kawaii",
+      "source_url": "https://dreamland.vn/dem/dem-foam/dem-foam-massage-kawaii"
+    },
+    {
+      "id": "dem-lo-xo",
+      "name": "Đệm lò xo",
+      "parent_id": "dem",
+      "product_count_on_source": 4,
+      "slug": "dem-lo-xo",
+      "source_url": "https://dreamland.vn/dem/dem-lo-xo"
+    },
+    {
+      "id": "dem-lo-xo-3-vien",
+      "name": "Đệm lò xo 3 viền",
+      "parent_id": "dem-lo-xo",
+      "product_count_on_source": 1,
+      "slug": "dem-lo-xo-3-vien",
+      "source_url": "https://dreamland.vn/dem/dem-lo-xo/dem-lo-xo-3-vien"
+    },
+    {
+      "id": "dem-lo-xo-4-vien",
+      "name": "Đệm lò xo 4 viền",
+      "parent_id": "dem-lo-xo",
+      "product_count_on_source": 1,
+      "slug": "dem-lo-xo-4-vien",
+      "source_url": "https://dreamland.vn/dem/dem-lo-xo/dem-lo-xo-4-vien"
+    },
+    {
+      "id": "dem-lo-xo-cao-cap",
+      "name": "Đệm lò xo cao cấp",
+      "parent_id": "dem-lo-xo",
+      "product_count_on_source": 1,
+      "slug": "dem-lo-xo-cao-cap",
+      "source_url": "https://dreamland.vn/dem/dem-lo-xo/dem-lo-xo-cao-cap"
+    },
+    {
+      "id": "dem-lo-xo-my",
+      "name": "Đệm lò xo Mỹ",
+      "parent_id": "dem-lo-xo",
+      "product_count_on_source": 1,
+      "slug": "dem-lo-xo-my",
+      "source_url": "https://dreamland.vn/dem/dem-lo-xo/dem-lo-xo-my"
+    },
+    {
+      "id": "hajin-hj",
+      "name": "HAJIN-HJ",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 11,
+      "slug": "hajin-hj",
+      "source_url": "https://dreamland.vn/bo-suu-tap/hajin-hj"
+    },
+    {
+      "id": "phu-kien",
+      "name": "Phụ kiện",
+      "parent_id": null,
+      "product_count_on_source": 51,
+      "slug": "phu-kien",
+      "source_url": "https://dreamland.vn/phu-kien"
+    },
+    {
+      "id": "chan-lien-goi",
+      "name": "Chăn liền gối",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 1,
+      "slug": "chan-lien-goi",
+      "source_url": "https://dreamland.vn/phu-kien/chan-lien-goi"
+    },
+    {
+      "id": "cotton-silk-pt",
+      "name": "COTTON SILK-PT",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 20,
+      "slug": "cotton-silk-pt",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-silk-pt"
+    },
+    {
+      "id": "chieu-dieu-hoa-5d-dreamland",
+      "name": "Chiếu điều hòa 5D Dreamland",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 13,
+      "slug": "chieu-dieu-hoa-5d-dreamland",
+      "source_url": "https://dreamland.vn/phu-kien/chieu-dieu-hoa-5d-dreamland"
+    },
+    {
+      "id": "lua-nuoc-mizu-mizu",
+      "name": "LỤA NƯỚC MIZU -MIZU",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 7,
+      "slug": "lua-nuoc-mizu-mizu",
+      "source_url": "https://dreamland.vn/bo-suu-tap/lua-nuoc-mizu-mizu"
+    },
+    {
+      "id": "tencel-luxury-sh",
+      "name": "TENCEL LUXURY- SH",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 15,
+      "slug": "tencel-luxury-sh",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-luxury-sh"
+    },
+    {
+      "id": "may",
+      "name": "MAY",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 12,
+      "slug": "may",
+      "source_url": "https://dreamland.vn/bo-suu-tap/may"
+    },
+    {
+      "id": "sumi",
+      "name": "SUMI",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 8,
+      "slug": "sumi",
+      "source_url": "https://dreamland.vn/bo-suu-tap/sumi"
+    },
+    {
+      "id": "shinshen-ss",
+      "name": "SHINSHEN-SS",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 9,
+      "slug": "shinshen-ss",
+      "source_url": "https://dreamland.vn/bo-suu-tap/shinshen-ss"
+    },
+    {
+      "id": "tencel-hoang-gia-tr",
+      "name": "Tencel Hoàng Gia-TR",
+      "parent_id": "tencel-hoang-gia-trsssh",
+      "product_count_on_source": 30,
+      "slug": "tencel-hoang-gia-tr",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-hoang-gia-trsssh/tencel-hoang-gia-tr"
+    },
+    {
+      "id": "cotton-sapphire-sp",
+      "name": "COTTON SAPPHIRE-SP",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 5,
+      "slug": "cotton-sapphire-sp",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-sapphire-sp"
+    },
+    {
+      "id": "cotton-modal-moc",
+      "name": "COTTON MODAL-MOC",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 8,
+      "slug": "cotton-modal-moc",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-modal-moc"
+    },
+    {
+      "id": "ghe-thu-gian",
+      "name": "Ghế thư giãn",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 1,
+      "slug": "ghe-thu-gian",
+      "source_url": "https://dreamland.vn/phu-kien/ghe-thu-gian"
+    },
+    {
+      "id": "tencel-bamboo-tb",
+      "name": "TENCEL BAMBOO-TB",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 27,
+      "slug": "tencel-bamboo-tb",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-bamboo-tb"
+    },
+    {
+      "id": "tencel-bamboo-solid-tbs",
+      "name": "TENCEL BAMBOO SOLID-TBS",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 5,
+      "slug": "tencel-bamboo-solid-tbs",
+      "source_url": "https://dreamland.vn/bo-suu-tap/tencel-bamboo-solid-tbs"
+    },
+    {
+      "id": "ruot-chan-100-dau-tam-to-tam",
+      "name": "Ruột chăn 100% Dâu tằm tơ tằm",
+      "parent_id": "cac-loai-ruot-chan",
+      "product_count_on_source": 1,
+      "slug": "ruot-chan-100-dau-tam-to-tam",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-chan/ruot-chan-100-dau-tam-to-tam"
+    },
+    {
+      "id": "ruot-chan-ep-hoi-classic",
+      "name": "Ruột chăn ép hơi Classic",
+      "parent_id": "cac-loai-ruot-chan",
+      "product_count_on_source": 1,
+      "slug": "ruot-chan-ep-hoi-classic",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-chan/ruot-chan-ep-hoi-classic"
+    },
+    {
+      "id": "ruot-chan-light",
+      "name": "Ruột Chăn Light",
+      "parent_id": "cac-loai-ruot-chan",
+      "product_count_on_source": 1,
+      "slug": "ruot-chan-light",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-chan/ruot-chan-light"
+    },
+    {
+      "id": "ruot-chan-micro",
+      "name": "Ruột chăn Micro",
+      "parent_id": "cac-loai-ruot-chan",
+      "product_count_on_source": 1,
+      "slug": "ruot-chan-micro",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-chan/ruot-chan-micro"
+    },
+    {
+      "id": "ruot-chan-mong-pt",
+      "name": "Ruột chăn mỏng-PT",
+      "parent_id": "cac-loai-ruot-chan",
+      "product_count_on_source": 1,
+      "slug": "ruot-chan-mong-pt",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-chan/ruot-chan-mong-pt"
+    },
+    {
+      "id": "ruot-goi-cao-su-thien-nhien",
+      "name": "Ruột gối cao su Thiên nhiên",
+      "parent_id": "cac-loai-ruot-goi",
+      "product_count_on_source": 5,
+      "slug": "ruot-goi-cao-su-thien-nhien",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi/ruot-goi-cao-su-thien-nhien"
+    },
+    {
+      "id": "ruot-goi-cao-su-xuat-khau",
+      "name": "Ruột gối cao su xuất khẩu",
+      "parent_id": "cac-loai-ruot-goi",
+      "product_count_on_source": 4,
+      "slug": "ruot-goi-cao-su-xuat-khau",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi/ruot-goi-cao-su-xuat-khau"
+    },
+    {
+      "id": "ruot-goi-chong-ngay",
+      "name": "Ruột gối chống ngáy",
+      "parent_id": "cac-loai-ruot-goi",
+      "product_count_on_source": 3,
+      "slug": "ruot-goi-chong-ngay",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi/ruot-goi-chong-ngay"
+    },
+    {
+      "id": "ruot-goi-chong-thoai-hoa",
+      "name": "Ruột gối Chống Thoái Hóa",
+      "parent_id": "cac-loai-ruot-goi",
+      "product_count_on_source": 1,
+      "slug": "ruot-goi-chong-thoai-hoa",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi/ruot-goi-chong-thoai-hoa"
+    },
+    {
+      "id": "ruot-goi-ep-hoi",
+      "name": "Ruột gối ép hơi",
+      "parent_id": "cac-loai-ruot-goi",
+      "product_count_on_source": 2,
+      "slug": "ruot-goi-ep-hoi",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi/ruot-goi-ep-hoi"
+    },
+    {
+      "id": "ruot-goi-foam",
+      "name": "Ruột gối Foam",
+      "parent_id": "cac-loai-ruot-goi",
+      "product_count_on_source": 1,
+      "slug": "ruot-goi-foam",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi/ruot-goi-foam"
+    },
+    {
+      "id": "bo-ruot-solid-hc",
+      "name": "Bộ Ruột Solid – HC",
+      "parent_id": "cac-loai-ruot-goi",
+      "product_count_on_source": 4,
+      "slug": "bo-ruot-solid-hc",
+      "source_url": "https://dreamland.vn/cac-loai-ruot-goi/bo-ruot-solid-hc"
+    },
+    {
+      "id": "goi-tua-oto",
+      "name": "Gối tựa oto",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 1,
+      "slug": "goi-tua-oto",
+      "source_url": "https://dreamland.vn/phu-kien/goi-tua-oto"
+    },
+    {
+      "id": "khan-tam-khan-mat",
+      "name": "Khăn tắm-Khăn mặt",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 1,
+      "slug": "khan-tam-khan-mat",
+      "source_url": "https://dreamland.vn/phu-kien/khan-tam-khan-mat"
+    },
+    {
+      "id": "organic-bamboo-ob",
+      "name": "ORGANIC BAMBOO-OB",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 13,
+      "slug": "organic-bamboo-ob",
+      "source_url": "https://dreamland.vn/bo-suu-tap/organic-bamboo-ob"
+    },
+    {
+      "id": "cotton-bamboo-bb",
+      "name": "COTTON BAMBOO-BB",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 7,
+      "slug": "cotton-bamboo-bb",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-bamboo-bb"
+    },
+    {
+      "id": "mochi-mc",
+      "name": "MOCHI-MC",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 5,
+      "slug": "mochi-mc",
+      "source_url": "https://dreamland.vn/bo-suu-tap/mochi-mc"
+    },
+    {
+      "id": "linen-solid-pct",
+      "name": "LINEN SOLID-PCT",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 6,
+      "slug": "linen-solid-pct",
+      "source_url": "https://dreamland.vn/bo-suu-tap/linen-solid-pct"
+    },
+    {
+      "id": "tam-bao-ve-dem",
+      "name": "Tấm Bảo Vệ Đệm",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 1,
+      "slug": "tam-bao-ve-dem",
+      "source_url": "https://dreamland.vn/phu-kien/tam-bao-ve-dem"
+    },
+    {
+      "id": "linen-micro-eu",
+      "name": "LINEN MICRO-EU",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 8,
+      "slug": "linen-micro-eu",
+      "source_url": "https://dreamland.vn/bo-suu-tap/linen-micro-eu"
+    },
+    {
+      "id": "amaii",
+      "name": "AMAII",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 6,
+      "slug": "amaii",
+      "source_url": "https://dreamland.vn/bo-suu-tap/amaii"
+    },
+    {
+      "id": "tham-han-quoc",
+      "name": "Thảm Hàn Quốc",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 5,
+      "slug": "tham-han-quoc",
+      "source_url": "https://dreamland.vn/phu-kien/tham-han-quoc"
+    },
+    {
+      "id": "cotton-solid-ab",
+      "name": "COTTON SOLID – AB",
+      "parent_id": "bo-suu-tap",
+      "product_count_on_source": 9,
+      "slug": "cotton-solid-ab",
+      "source_url": "https://dreamland.vn/bo-suu-tap/cotton-solid-ab"
+    },
+    {
+      "id": "tui-giat",
+      "name": "Túi giặt",
+      "parent_id": "phu-kien",
+      "product_count_on_source": 1,
+      "slug": "tui-giat",
+      "source_url": "https://dreamland.vn/phu-kien/tui-giat"
+    }
+  ],
+  "synced_at": "2026-11-25T06:54:16.477Z"
+}
