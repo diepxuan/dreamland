@@ -1,0 +1,153 @@
+# .github/workflows/sync.yml — Đồng bộ catalog + ảnh tự lưu cho dreamlandvn.com
+# Theo mô hình sync của everon.site (PR dữ liệu + sync), nhưng dùng scraper
+# WooCommerce Store API của DreamLand (scripts/sync/scrape-full.mjs).
+#
+# Luồng chạy (thứ tự quan trọng):
+#   1. scrape-full.mjs — cập nhật dữ liệu từ dreamland.vn (Store API +
+#      WP REST API lấy modified). Mặc định chạy TĂNG DẦN (chỉ SP có
+#      modified đổi hoặc SP mới); Chủ nhật hoặc full_scan thì --full.
+#   2. images.mjs — tải ảnh MỚI/THAY ĐỔI về assets/img/products/<id>/*.webp
+#      (thu nhỏ tối đa 1200px, WebP q70), song song với cập nhật dữ liệu
+#      (chạy sau scrape vì cần danh sách source_url mới nhất). Ảnh không
+#      đổi (đã có trong manifest) thì bỏ qua.
+#   3. validate.mjs (+ safety gate) — chặn nếu mất >10% catalog, có giá âm,
+#      hoặc có SP giá 0 ngoài danh sách cho phép (data/zero-price-allowed.json).
+#   4. diff.mjs — tóm tắt thay đổi để đưa vào mô tả PR.
+#   5. Dọn file trung gian (discovery.json, products.full.jsonl,
+#      run-stats.json, sync-diff.json) — chỉ để chạy, không đưa vào PR.
+#   6. peter-evans/create-pull-request — mở PR để DUYỆT THỦ CÔNG, KHÔNG tự merge.
+#      Action chỉ mở PR khi có thay đổi thật (không có thay đổi thì không làm gì).
+#
+# Lịch: hằng ngày 03:00 giờ Việt Nam (20:00 UTC). Chủ nhật (giờ Việt Nam)
+# quét TOÀN BỘ; các ngày khác quét tăng dần theo modified.
+# Chạy tay: Actions > Sync catalog > Run workflow, tick full_scan nếu muốn quét toàn bộ.
+#
+# Lần chạy đầu tiên (sau khi PR dữ liệu merge): tải toàn bộ ~1.246 ảnh
+# (~150-210 MB WebP, thu nhỏ 1200px) và mở 1 PR lớn chứa cả dữ liệu + ảnh.
+# Các lần sau chỉ tải ảnh mới/thay đổi.
+name: Sync catalog from dreamland.vn
+
+on:
+  schedule:
+    - cron: "0 20 * * *" # 03:00 giờ Việt Nam, hằng ngày
+  workflow_dispatch:
+    inputs:
+      full_scan:
+        description: "Quét toàn bộ (bỏ qua sync-state, cào lại tất cả SP)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: catalog-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240 # chạy full lần đầu ~30 phút cào dữ liệu + tải ~1.246 ảnh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Đảm bảo ffmpeg (chuyển ảnh sang WebP)
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! ffmpeg -hide_banner -encoders 2>/dev/null | grep -q libwebp; then
+            echo "ffmpeg chưa có sẵn — cài qua apt..."
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          fi
+          ffmpeg -hide_banner -encoders | grep libwebp
+
+      - name: Lưu bản dữ liệu hiện tại (để diff + safety gate)
+        run: |
+          if [ -f data/products.json ]; then
+            cp data/products.json /tmp/products-prev.json
+          else
+            echo "Chưa có data/products.json — lần chạy đầu tiên, không có bản trước để so."
+            echo "[]" > /tmp/products-prev.json
+          fi
+
+      - name: Xác định quét toàn bộ hay tăng dần
+        id: mode
+        run: |
+          # Chủ nhật tính theo giờ Việt Nam: 03:00 +07 Chủ nhật = 20:00 UTC Thứ bảy,
+          # nên phải lấy thứ theo múi giờ Asia/Ho_Chi_Minh, không dùng giờ UTC.
+          DOW_VN=$(TZ=Asia/Ho_Chi_Minh date +%u)
+          if [ "$DOW_VN" = "7" ] || [ "${{ inputs.full_scan }}" = "true" ]; then
+            echo "full=true" >> "$GITHUB_OUTPUT"
+            echo "Quét TOÀN BỘ (Chủ nhật / chạy tay yêu cầu full_scan)."
+          else
+            echo "full=false" >> "$GITHUB_OUTPUT"
+            echo "Quét tăng dần (chỉ SP có modified đổi hoặc SP mới)."
+          fi
+
+      - name: Sync catalog
+        run: |
+          if [ "${{ steps.mode.outputs.full }}" = "true" ]; then
+            node scripts/sync/scrape-full.mjs --full
+          else
+            node scripts/sync/scrape-full.mjs
+          fi
+
+      - name: Tải + chuyển ảnh sang WebP
+        run: node scripts/sync/images.mjs
+
+      - name: Validate + safety gate
+        run: node scripts/sync/validate.mjs data/products.json --manifest data/image-manifest.json --prev /tmp/products-prev.json
+
+      - name: Diff vs trước đó
+        run: node scripts/sync/diff.mjs /tmp/products-prev.json data/products.json data/sync-diff.json
+
+      - name: Soạn mô tả PR
+        run: |
+          node -e "
+          const fs = require('fs');
+          const diff = JSON.parse(fs.readFileSync('data/sync-diff.json', 'utf8'));
+          const man = JSON.parse(fs.readFileSync('data/image-manifest.json', 'utf8'));
+          const s = man.summary || {};
+          const vnd = (n) => Number(n || 0).toLocaleString('vi-VN') + 'đ';
+          const list = (arr, fmt, max = 20) => arr.slice(0, max).map(fmt).join('\n') + (arr.length > max ? '\n- ... và ' + (arr.length - max) + ' mục nữa' : '');
+          const lines = [
+            'Đồng bộ tự động từ dreamland.vn (WooCommerce Store API + WP REST API). Duyệt thủ công trước khi merge — KHÔNG tự merge.',
+            '',
+            '## Dữ liệu',
+            '- Sản phẩm: ' + diff.old_count + ' → ' + diff.new_count + ' (biến thể: ' + diff.old_variants + ' → ' + diff.new_variants + '; ảnh: ' + diff.old_images + ' → ' + diff.new_images + ')',
+            '- Mới thêm (' + diff.added_count + '): ' + (diff.added.join(', ') || 'không có'),
+            '- Bị gỡ (' + diff.removed_count + '): ' + (diff.removed.join(', ') || 'không có'),
+            '- Đổi giá (' + diff.price_changes.length + '):',
+            list(diff.price_changes, (c) => '  - ' + c.id + ' (' + c.name + '): ' + vnd(c.old_price) + ' → ' + vnd(c.new_price)),
+            '- Đổi trạng thái (' + diff.status_changes.length + '):',
+            list(diff.status_changes, (c) => '  - ' + c.id + ': ' + c.old_status + ' → ' + c.new_status),
+            '- Đổi số biến thể (' + diff.variant_changes.length + ' SP):',
+            list(diff.variant_changes, (c) => '  - ' + c.id + ': ' + c.old_variants + ' → ' + c.new_variants + ' biến thể'),
+            '- Đổi ảnh gốc (' + diff.media_changes.length + ' SP):',
+            list(diff.media_changes, (c) => '  - ' + c.id + ': +' + c.added_images + ' ảnh, -' + c.removed_images + ' ảnh'),
+            '- SP mới có giá 0 (' + diff.zero_price_new.length + '): ' + (diff.zero_price_new.join(', ') || 'không có'),
+            '',
+            '## Ảnh tự lưu (assets/img/products/)',
+            '- Tổng: ' + s.total + ' ảnh; tải mới/chuyển WebP: ' + s.downloaded + '; bỏ qua (không đổi): ' + s.skipped + '; lỗi: ' + s.failed + '; giữ định dạng gốc: ' + (s.fallback_original || 0),
+            '- Dung lượng ảnh mới: ' + ((s.bytes_total || 0) / 1024).toFixed(0) + ' KB',
+            '',
+            '## Kiểm tra',
+            '- validate.mjs + safety gate (mất >10% catalog, giá âm, hoặc giá 0 ngoài danh sách cho phép thì chặn): đã qua.',
+            '- Tóm tắt đầy đủ ở trên; file sync-diff.json chi tiết không đưa vào PR (đã dọn ở bước trước), xem lại trong log của lần chạy Actions này.',
+          ];
+          fs.writeFileSync('/tmp/PR_BODY.md', lines.join('\n') + '\n');
+          console.log('Da soan mo ta PR (' + lines.length + ' dong).');
+          "
+
+      - name: Dọn file trung gian (không đưa vào PR)
+        run: rm -f data/products.full.jsonl data/discovery.json data/run-stats.json data/sync-diff.json
+
+      - name: Mở PR để duyệt thủ công
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "Cập nhật catalog từ dreamland.vn"
+          branch: "sync/catalog"
+          commit-message: "sync: cập nhật catalog từ dreamland.vn"
+          body-path: /tmp/PR_BODY.md
