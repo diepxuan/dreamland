@@ -434,14 +434,6 @@
         );
       }).join("\n");
     }
-    var statP = document.getElementById("stat-products");
-    if (statP) statP.textContent = data.products.length;
-    var statV = document.getElementById("stat-variants");
-    if (statV) {
-      statV.textContent = data.products.reduce(function (n, p) { return n + (p.variants || []).length; }, 0);
-    }
-    var statC = document.getElementById("stat-categories");
-    if (statC) statC.textContent = data.categories.length;
   }
 
   /* ---------- trang danh mục ---------- */

@@ -202,7 +202,6 @@ const categories = JSON.parse(readFileSync(join(root, "data/categories.json"), "
   const catHtml = byId["category-grid"].innerHTML;
   check("trang chủ: đủ 6 nhóm danh mục gốc", (catHtml.match(/class="cat-card"/g) || []).length === 6);
   check("trang chủ: Bộ sưu tập 326 mẫu, Chăn 134 mẫu, Đệm 19 mẫu", catHtml.includes("326 mẫu") && catHtml.includes("134 mẫu") && catHtml.includes("19 mẫu"));
-  check("trang chủ: thống kê 516 / 4.785 / 128", String(byId["stat-products"].textContent) === "516" && String(byId["stat-variants"].textContent) === "4785" && String(byId["stat-categories"].textContent) === "128");
   check("trang chủ: thẻ dùng đường dẫn tự lưu assets/img/products/", feat.includes('src="assets/img/products/'));
   check("trang chủ: thẻ có data-fallback về ảnh nguồn", feat.includes('data-fallback="https://dreamland.vn/'));
   check("trang chủ: không có link ra ngoài trong HTML render", !/href="https?:\/\/(?!zalo\.me)/.test(feat));
