@@ -203,10 +203,31 @@ main { padding: 8px 0 40px; }
   display: flex;
   flex-direction: column;
 }
-.card > a { display: block; text-decoration: none; color: inherit; }
+.card > a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  /* Khung ảnh vuông ép bằng padding-top (tỉ lệ theo chiều rộng) thay vì
+     chỉ trông chờ aspect-ratio: trình duyệt cũ / WebView cũ trong app
+     Zalo, Facebook không hiểu aspect-ratio sẽ để ảnh cao theo tỉ lệ gốc
+     (ảnh DreamLand dọc ~2:3). padding-top: 100% cho khung vuông ở mọi
+     trình duyệt; aspect-ratio giữ lại cho trình duyệt mới. Kỹ thuật này
+     giống gói Everon (khung .card > a + ảnh absolute), để 2 site nhất
+     quán. Trước đây chỉ có height: auto + aspect-ratio: 1 thì máy mới
+     vuông, máy cũ vẫn dọc. */
+  position: relative;
+  aspect-ratio: 1 / 1;
+  padding-top: 100%;
+  overflow: hidden;
+}
+/* Ảnh thẻ lấp đầy khung vuông: absolute + inset 0 nên không còn phụ
+   thuộc height="600" trong app.js hay aspect-ratio của trình duyệt. */
 .card img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 1;
+  height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
   background: #eee;
@@ -297,6 +318,7 @@ main { padding: 8px 0 40px; }
 .gal-count { position: absolute; right: 10px; bottom: 10px; background: rgba(16,35,58,.78); color: #fff; font-size: 13px; padding: 3px 10px; border-radius: 20px; }
 .gallery .main-img {
   width: 100%;
+  height: auto;
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 8px;
@@ -320,7 +342,10 @@ main { padding: 8px 0 40px; }
 
 /* ---------- Xem ảnh lớn (lightbox) ---------- */
 .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(10,18,30,.92); display: flex; align-items: center; justify-content: center; padding: 16px; }
-.lightbox .lb-img { max-width: min(1100px, 92vw); max-height: 86vh; object-fit: contain; border-radius: 8px; background: #fff; }
+/* Ảnh xem lớn (lightbox) cũng VUÔNG như ảnh chính, cho nhất quán: trước
+   đây object-fit: contain + không ép tỉ lệ nên ảnh dọc 1701x2548 hiện
+   cao 538px ở máy 390px, choán gần hết màn hình. */
+.lightbox .lb-img { width: min(1100px, 92vw, 86vh); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 8px; background: #fff; }
 .lb-close { position: absolute; top: 14px; right: 16px; width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: var(--navy); font-size: 26px; line-height: 1; cursor: pointer; }
 .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: var(--navy); font-size: 28px; line-height: 1; cursor: pointer; }
 .lb-prev { left: 14px; }
@@ -403,15 +428,30 @@ main { padding: 8px 0 40px; }
   .gallery { position: sticky; top: 76px; }
 }
 
+/* ---------- Header gọn tới tablet nhỏ (≤720px) ---------- */
+@media (max-width: 720px) {
+  /* Header gọn lại: trước đây cao 189px (máy 390px) / 229px (máy 360px)
+     và ~192px ở khổ 600px, chiếm 22–27% màn hình vì brand 3 dòng + ô
+     tìm kiếm 1 hàng riêng + menu 1 hàng riêng, lại còn sticky. Nay chỉ
+     còn 2 hàng: hàng 1 là logo + ô tìm kiếm, hàng 2 là menu trượt ngang
+     1 dòng. Áp tới 720px (trước đây chỉ ≤480px nên khổ 600px vẫn cao). */
+  .site-header .wrap { gap: 8px 12px; padding-top: 8px; padding-bottom: 8px; }
+  .brand span { display: none; } /* ẩn tagline dài, thông tin còn ở footer/showroom */
+  .header-search { flex: 1 1 0; max-width: none; }
+  .main-nav { flex: 1 1 100%; margin-left: 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .main-nav::-webkit-scrollbar { display: none; }
+  .main-nav a { padding: 7px 8px; font-size: 14px; }
+  .header-call { display: none; }
+}
+
 /* ---------- Mobile nhỏ ---------- */
 @media (max-width: 480px) {
   .hero { padding: 26px 0 30px; }
   .hero h1 { font-size: 25px; }
   .hero-stats b { font-size: 20px; }
-  .main-nav a { padding: 7px 8px; font-size: 14px; }
-  .header-call { display: none; }
-  .header-search { flex: 1 1 100%; max-width: none; }
-  .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  /* Giữ 2 cột tới máy 360px: minmax 160px rớt xuống 1 cột ở 360px
+     (328px < 160*2+12), 150px thì vẫn đủ 2 cột (312px). */
+  .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
   .card-body { padding: 10px 12px 12px; }
   .card-body h3 { font-size: 15.5px; }
   .price { font-size: 17px; }
