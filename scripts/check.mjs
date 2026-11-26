@@ -59,6 +59,7 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
   check("HTML không có slider trang chủ: " + f.replace(root + "/", ""), !/slider/i.test(src));
   check("HTML có logo chữ DREAMLAND + ĐIỆP XUÂN: " + f.replace(root + "/", ""), src.includes("DREAMLAND") && src.includes("ĐIỆP XUÂN"));
   check("HTML có link favicon.svg: " + f.replace(root + "/", ""), src.includes('href="favicon.svg"'));
+  check("HTML có menu Sản phẩm + nút hamburger: " + f.replace(root + "/", ""), src.includes('data-nav="products"') && src.includes("Sản phẩm") && src.includes('class="nav-toggle"') && src.includes("☰"));
 }
 const css = readFileSync(join(root, "assets/css/style.css"), "utf8");
 check("CSS có breakpoint mobile 480px", css.includes("@media (max-width: 480px)"));
@@ -68,6 +69,9 @@ check("CSS có kiểu xem ảnh lớn (lightbox)", css.includes(".lightbox") && 
 check("CSS dải ảnh nhỏ trượt ngang", css.includes(".thumbs") && css.includes("overflow-x: auto"));
 check("CSS có chip danh mục con", css.includes(".chip"));
 check("CSS có ô tìm kiếm header", css.includes(".header-search"));
+check("CSS có kiểu dropdown menu Sản phẩm", css.includes(".nav-panel") && css.includes(".nav-drop") && css.includes(".nav-group"));
+check("CSS có kiểu nút hamburger + nav dọc mobile", css.includes(".nav-toggle") && css.includes(".main-nav.open"));
+check("CSS dropdown Bộ sưu tập chia 3 cột, giới hạn chiều cao + cuộn dọc", css.includes(".nav-group--wide") && css.includes("max-height: calc(100vh - 90px)") && css.includes("overflow-y: auto"));
 check("CSS có kiểu nút biến thể mờ (disabled)", css.includes(".opt:disabled"));
 check("CSS có lưới 2 địa điểm", css.includes(".loc-grid") && css.includes(".loc-card"));
 const favicon = existsSync(join(root, "favicon.svg")) ? readFileSync(join(root, "favicon.svg"), "utf8") : "";
@@ -96,11 +100,21 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
   check("HTML có giờ cả 2 showroom (07:30–21:00): " + rel, (src.match(/07:30–21:00/g) || []).length === 2);
   check("HTML footer ghi cả 2 showroom: " + rel, src.includes("241 Trần Hưng Đạo · 110 Lý Thường Kiệt"));
 }
+const indexHtml = readFileSync(join(root, "index.html"), "utf8");
+check("trang chủ: không còn mục Danh mục sản phẩm (cat-title / category-grid)", !indexHtml.includes('id="cat-title"') && !indexHtml.includes('id="category-grid"'));
+check("trang chủ: Trang chủ vẫn active tĩnh", indexHtml.includes('data-nav="home" class="active"'));
+const catHtmlFile = readFileSync(join(root, "danh-muc.html"), "utf8");
+const detailHtmlFile = readFileSync(join(root, "san-pham.html"), "utf8");
+check("trang danh mục / chi tiết: không active tĩnh, JS tự set Sản phẩm active", !catHtmlFile.includes('class="active"') && !detailHtmlFile.includes('class="active"'));
 const appJs = readFileSync(join(root, "assets/js/app.js"), "utf8");
 check("app.js vẽ địa điểm từ site.locations", appJs.includes("[data-locations]") && appJs.includes("site.locations") && appJs.includes("locationsHTML"));
 check("app.js có placeholder ảnh + hiện Liên hệ khi giá 0", appJs.includes("PLACEHOLDER") && appJs.includes("Liên hệ") && appJs.includes("priceText"));
 check("app.js có logic trục biến thể từ biến thể thật", appJs.includes("variantAxes") && appJs.includes("matchVariant") && appJs.includes("otherValueOf"));
 check("app.js tìm sản phẩm theo id (72 SP không có SKU)", appJs.includes("findProduct") && appJs.includes("productKey"));
+check("app.js render menu Sản phẩm từ categories", appJs.includes("renderNavMenu") && appJs.includes("childCategories") && appJs.includes("nav-panel"));
+check("app.js không còn render lưới danh mục trang chủ", !appJs.includes("category-grid"));
+check("app.js tự set active cho menu theo trang", appJs.includes("setNavActive") && appJs.includes('data-nav="products"') && appJs.includes('data-nav="home"'));
+check("app.js có nút hamburger + đóng menu bằng Esc / bấm ra ngoài", appJs.includes("nav-toggle") && appJs.includes("Escape") && appJs.includes("closeNavMenu"));
 
 /* ---------- 2. DOM shim + chạy thử app.js ---------- */
 const ENTITY_MAP = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
@@ -199,9 +213,29 @@ const categories = JSON.parse(readFileSync(join(root, "data/categories.json"), "
   check("trang chủ: 8 sản phẩm nổi bật", (feat.match(/<article class="card">/g) || []).length === 8);
   check("trang chủ: nổi bật đầu là AMAII – 01, 180.000đ", feat.includes("AMAII – 01") && feat.includes("180.000đ"));
   check("trang chủ: nổi bật không có giá đúng 0đ", !/>0đ</.test(feat));
-  const catHtml = byId["category-grid"].innerHTML;
-  check("trang chủ: đủ 6 nhóm danh mục gốc", (catHtml.match(/class="cat-card"/g) || []).length === 6);
-  check("trang chủ: Bộ sưu tập 326 mẫu, Chăn 134 mẫu, Đệm 19 mẫu", catHtml.includes("326 mẫu") && catHtml.includes("134 mẫu") && catHtml.includes("19 mẫu"));
+  /* Menu header: dropdown Sản phẩm render từ categories.json (mục
+     "Danh mục sản phẩm" trên trang chủ đã bỏ, thay bằng menu này). */
+  const navHtml = byId["nav-panel"].innerHTML;
+  check("menu: dropdown đủ 6 nhóm", (navHtml.match(/<div class="nav-group[\s"]/g) || []).length === 6);
+  const expectedKids = { "Bộ sưu tập": 37, "Chăn": 5, "Đệm": 4, "Ruột chăn": 5, "Ruột gối": 8, "Phụ kiện": 9 };
+  const navGroups = navHtml.split(/<div class="nav-group[\s"]/).slice(1);
+  const countsOk = navGroups.length === 6 && navGroups.every((g) => {
+    const title = (g.match(/nav-group-title"[^>]*>([^<]+)</) || [])[1];
+    const links = (g.match(/href="(\.\/)?danh-muc\.html\?cat=/g) || []).length;
+    return title && expectedKids[title] === links - 1; /* trừ link tiêu đề nhóm */
+  });
+  check("menu: đủ số con mỗi nhóm (Bộ sưu tập 37, Chăn 5, Đệm 4, Ruột chăn 5, Ruột gối 8, Phụ kiện 9)", countsOk);
+  check(
+    "menu: link con đúng dạng danh-muc.html?cat=",
+    (navHtml.match(/href="([^"]+)"/g) || []).every((h) => /^href="(\.\/)?danh-muc\.html\?cat=[^"]+"$/.test(h) || h === 'href="./danh-muc.html"')
+  );
+  check(
+    "menu: nhãn gọn Ruột chăn / Ruột gối, link đúng nhóm",
+    navHtml.includes('href="./danh-muc.html?cat=cac-loai-ruot-chan">Ruột chăn</a>') &&
+    navHtml.includes('href="./danh-muc.html?cat=cac-loai-ruot-goi">Ruột gối</a>')
+  );
+  check("menu: có link Xem tất cả sản phẩm", navHtml.includes('class="nav-all"') && navHtml.includes("Xem tất cả sản phẩm"));
+  check("menu: nhóm Bộ sưu tập chia 3 cột (nav-group--wide)", navHtml.includes("nav-group--wide"));
   check("trang chủ: thẻ dùng đường dẫn tự lưu assets/img/products/", feat.includes('src="assets/img/products/'));
   check("trang chủ: thẻ có data-fallback về ảnh nguồn", feat.includes('data-fallback="https://dreamland.vn/'));
   check("trang chủ: không có link ra ngoài trong HTML render", !/href="https?:\/\/(?!zalo\.me)/.test(feat));
@@ -226,6 +260,7 @@ const categories = JSON.parse(readFileSync(join(root, "data/categories.json"), "
   const grid = byId["product-grid"];
   const cards = (grid.innerHTML.match(/<article class="card">/g) || []).length;
   check("danh mục: render đủ 516 sản phẩm", cards === 516, "đếm được " + cards);
+  check("menu: trang danh mục cũng render đủ 6 nhóm", (byId["nav-panel"].innerHTML.match(/<div class="nav-group[\s"]/g) || []).length === 6);
   check("danh mục: 71 giá hiển thị Liên hệ (không hiện 0đ)", (grid.innerHTML.match(/Liên hệ/g) || []).length === 71, "đếm được " + (grid.innerHTML.match(/Liên hệ/g) || []).length);
   check("danh mục: không có giá đúng 0đ trong danh sách", !/>0đ</.test(grid.innerHTML));
   check("danh mục: 1 nhãn Hết hàng (Ruột gối mát)", (grid.innerHTML.match(/Hết hàng/g) || []).length === 1, "đếm được " + (grid.innerHTML.match(/Hết hàng/g) || []).length);
