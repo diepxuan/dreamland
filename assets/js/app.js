@@ -407,6 +407,99 @@
     });
   }
 
+  /* ---------- menu header: dropdown Sản phẩm ---------- */
+  /* Tham khảo menu "Sản phẩm" của trang nguồn DreamLand (tiêu đề nhóm +
+     danh sách danh mục con theo cột) và mega-menu của Everon (các
+     nhóm xếp cột). Nhóm gốc dùng tên gọn như menu nguồn: "Ruột chăn",
+     "Ruột gối"; 4 nhóm còn lại giữ đúng tên trong dữ liệu. Chỉ hiện
+     2 tầng (danh mục cháu không hiện trong menu, xem được ở trang
+     danh mục con). Nhóm nhiều con (Bộ sưu tập, 37 con) được xếp
+     class nav-group--wide để CSS chia 3 cột. */
+  var MENU_LABELS = {
+    "cac-loai-ruot-chan": "Ruột chăn",
+    "cac-loai-ruot-goi": "Ruột gối"
+  };
+  function menuLabel(c) {
+    return MENU_LABELS[c.id] || c.name;
+  }
+  function renderNavMenu(categories) {
+    var panel = document.getElementById("nav-panel");
+    if (!panel) return;
+    var roots = (categories || []).filter(function (c) { return !c.parent_id; });
+    var html = roots.map(function (r) {
+      var kids = childCategories(categories, r.id);
+      var wide = kids.length > 12 ? " nav-group--wide" : "";
+      var links = kids.map(function (k) {
+        return '<a href="' + esc(categoryUrl(k.id)) + '">' + esc(k.name) + "</a>";
+      }).join("");
+      return '<div class="nav-group' + wide + '">' +
+        '<a class="nav-group-title" href="' + esc(categoryUrl(r.id)) + '">' + esc(menuLabel(r)) + "</a>" +
+        '<div class="nav-group-links">' + links + "</div></div>";
+    }).join("");
+    html += '<a class="nav-all" href="' + esc(ROOT + "danh-muc.html") + '">Xem tất cả sản phẩm →</a>';
+    panel.innerHTML = html;
+  }
+  function closeNavMenu() {
+    var drop = document.querySelector(".nav-drop");
+    if (drop && drop.classList) drop.classList.remove("open");
+    var link = document.querySelector('[data-nav="products"]');
+    if (link) link.setAttribute("aria-expanded", "false");
+  }
+  /* Mục đang xem: trang chủ thì "Trang chủ" active, trang danh mục /
+     chi tiết thì "Sản phẩm" active. Trang chủ giữ class active tĩnh
+     trong HTML; 2 trang còn lại JS tự set. */
+  function setNavActive(page) {
+    var home = document.querySelector('[data-nav="home"]');
+    var prod = document.querySelector('[data-nav="products"]');
+    if (home && home.classList) {
+      if (page === "home") home.classList.add("active");
+      else home.classList.remove("active");
+    }
+    if (prod && prod.classList) {
+      if (page === "category" || page === "detail") prod.classList.add("active");
+      else prod.classList.remove("active");
+    }
+  }
+  function bindNavMenu() {
+    var link = document.querySelector('[data-nav="products"]');
+    var drop = document.querySelector(".nav-drop");
+    if (link && drop) {
+      link.addEventListener("click", function (e) {
+        /* Bấm / chạm thì mở-đóng panel (màn cảm ứng không có hover).
+           Link danh-muc.html giữ làm đường dự phòng khi JS lỗi; khi
+           JS chạy, đường tới toàn bộ sản phẩm là nút "Xem tất cả
+           sản phẩm" trong panel. */
+        e.preventDefault();
+        var isOpen = drop.classList.contains("open");
+        closeNavMenu();
+        if (!isOpen) {
+          drop.classList.add("open");
+          link.setAttribute("aria-expanded", "true");
+        }
+      });
+    }
+    /* Nút hamburger (chỉ hiện ở mobile ≤720px): mở-đóng nav dọc. */
+    var toggle = document.getElementById("nav-toggle");
+    var nav = document.getElementById("main-nav");
+    if (toggle && nav) {
+      toggle.addEventListener("click", function () {
+        var isOpen = nav.classList.contains("open");
+        if (isOpen) nav.classList.remove("open");
+        else nav.classList.add("open");
+        toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+      });
+    }
+    if (document.addEventListener) {
+      document.addEventListener("click", function (e) {
+        var t = e.target;
+        if (!t || !t.closest || !t.closest(".nav-drop")) closeNavMenu();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e && e.key === "Escape") closeNavMenu();
+      });
+    }
+  }
+
   /* ---------- trang chủ ---------- */
   function initHome(data) {
     var site = data.site;
@@ -419,20 +512,6 @@
         .slice(0, 8);
       grid.innerHTML = featured.map(function (p) { return cardHTML(p, site, data.categories); }).join("\n");
       bindImageFallbacks(grid);
-    }
-    var catGrid = document.getElementById("category-grid");
-    if (catGrid) {
-      var roots = data.categories.filter(function (c) { return !c.parent_id; });
-      catGrid.innerHTML = roots.map(function (c) {
-        var count = productsInCategory(data.products, data.categories, c.id).length;
-        var kids = childCategories(data.categories, c.id).slice(0, 4).map(function (k) { return k.name; }).join(" · ");
-        return (
-          '<a class="cat-card" href="' + esc(categoryUrl(c.id)) + '">' +
-          "<h3>" + esc(c.name) + "</h3>" +
-          '<p><span class="count">' + count + ' mẫu</span>' + (kids ? " — " + esc(kids) + "…" : "") + "</p>" +
-          "<p>Xem danh mục →</p></a>"
-        );
-      }).join("\n");
     }
   }
 
@@ -850,9 +929,12 @@
   /* ---------- khởi động ---------- */
   function init() {
     var page = document.body ? document.body.getAttribute("data-page") : null;
+    setNavActive(page);
+    bindNavMenu();
     loadData()
       .then(function (data) {
         bindSite(data.site);
+        renderNavMenu(data.categories);
         if (page === "home") initHome(data);
         else if (page === "category") initCategory(data);
         else if (page === "detail") initDetail(data);
