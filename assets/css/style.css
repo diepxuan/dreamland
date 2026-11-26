@@ -117,6 +117,18 @@ a { color: var(--brand); }
 .nav-group-all { display: none; }
 .nav-drop-link .caret { font-size: 11px; display: inline-block; transition: transform .2s ease; }
 .nav-drop.open .nav-drop-link .caret { transform: rotate(180deg); }
+/* Căn hàng dọc mục "Sản phẩm" với các mục thường: .main-nav là flex
+   nhưng .nav-drop là div (không phải link trực tiếp) nên link lồng
+   trong vẫn inline — padding dọc không nở line box, chữ bị đẩy lên
+   cao hơn các mục kia 6px (đo thật bằng Chromium 1473/1280/1024px).
+   Cho .nav-drop thành flex để link thành flex item (blockify, padding
+   tính đủ chiều cao) và link thành inline-flex để mũi tên ▾ căn giữa
+   với chữ. Chỉ desktop (min-width: 721px): mobile (≤720px) drawer cần
+   .nav-drop là block để panel accordion xếp dưới link, không cạnh link. */
+@media (min-width: 721px) {
+  .nav-drop { display: flex; align-items: center; }
+  .nav-drop-link { display: inline-flex; align-items: center; }
+}
 .nav-panel {
   display: none;
   position: absolute;
