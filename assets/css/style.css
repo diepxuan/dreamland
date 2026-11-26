@@ -544,9 +544,17 @@ main { padding: 8px 0 40px; }
 .footer-brand { display: flex; align-items: center; gap: 10px; }
 .footer-brand h2 { margin: 0; }
 .footer-logo { width: 32px; height: auto; flex: 0 0 auto; background: #fff; border-radius: 8px; padding: 2px; }
-.footer-policy { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 14px 0 0; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .2); }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.footer-policy h3 { color: var(--rust-light); font-size: 15px; margin: 0 0 8px; }
+.footer-policy ul { list-style: none; margin: 0; padding: 0; }
+.footer-policy li { margin: 5px 0; }
 .footer-policy a { color: #9fc6e8; text-decoration: none; }
 .footer-policy a:hover { color: #fff; text-decoration: underline; }
+@media (min-width: 720px) {
+  .footer-grid { grid-template-columns: 2fr 1fr; }
+}
+.footer-bottom { margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .2); font-size: 13px; color: #9db0c2; }
+.footer-bottom p { margin: 3px 0; }
 
 /* ---------- Trang chính sách ---------- */
 .policy { max-width: 860px; }

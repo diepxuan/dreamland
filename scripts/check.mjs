@@ -90,6 +90,8 @@ check("CSS dấu ▾ xoay khi mở (class .open)", css.includes("transform: rota
 check("CSS dropdown Bộ sưu tập chia 3 cột, giới hạn chiều cao + cuộn dọc", css.includes(".nav-group--wide") && css.includes("max-height: calc(100vh - 90px)") && css.includes("overflow-y: auto"));
 check("CSS có kiểu nút biến thể mờ (disabled)", css.includes(".opt:disabled"));
 check("CSS có lưới 2 địa điểm", css.includes(".loc-grid") && css.includes(".loc-card"));
+check("footer mới: CSS có .footer-bottom + .footer-policy h3/ul/li (giống Everon)", css.includes(".footer-bottom") && css.includes(".footer-policy h3") && css.includes(".footer-policy ul") && css.includes(".footer-policy li"));
+check("footer mới: CSS có lưới .footer-grid 1 cột mobile + 2fr 1fr từ 720px (giống Everon)", css.includes(".footer-grid") && css.includes("grid-template-columns: 1fr") && css.includes("grid-template-columns: 2fr 1fr") && css.includes("@media (min-width: 720px)"));
 const favicon = existsSync(join(root, "favicon.svg")) ? readFileSync(join(root, "favicon.svg"), "utf8") : "";
 check("favicon.svg tồn tại, là SVG hợp lệ, chữ D nền navy", favicon.includes("<svg") && favicon.includes(">D<") && favicon.includes("#10233a"));
 /* 2 địa điểm theo Google Business Profile (đã xác nhận 25/11/2026). */
@@ -151,7 +153,7 @@ for (const [file, title] of POLICY_PAGES) {
   check("chính sách: " + file + " có tiêu đề đúng", src.includes("<title>" + title + " | DreamLand Điệp Xuân</title>"));
   check("chính sách: " + file + " có breadcrumb về trang chủ", src.includes('<a href="index.html">Trang chủ</a>'));
   check("chính sách: " + file + " có khối Cần hỗ trợ (Zalo + Gọi)", src.includes("Cần hỗ trợ?") && src.includes("zalo.me/0911825151") && src.includes("zalo.me/0363089565") && src.includes("tel:0911825151") && src.includes("tel:0363089565"));
-  check("chính sách: " + file + " dùng chung style.css?v=4", src.includes('assets/css/style.css?v=4'));
+  check("chính sách: " + file + " dùng chung style.css?v=5", src.includes('assets/css/style.css?v=5'));
   check("chính sách: " + file + " không nhắc thêm vào giỏ / thanh toán online", !/thêm vào giỏ/i.test(src) && !/thanh toán online/i.test(src));
   check("chính sách: " + file + " không có giá sale / Tiết kiệm", !/% giảm/i.test(src) && !/Tiết kiệm/i.test(src));
 }
@@ -161,6 +163,12 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
   check("footer đủ 8 link chính sách: " + rel, POLICY_PAGES.every(([file]) => src.includes('href="' + file + '"')));
   check("footer có GPDKKD 3100349022: " + rel, src.includes("GPDKKD: 3100349022"));
   check("footer có địa chỉ xưởng Thuận Đức: " + rel, src.includes("Khu làng nghề Thuận Đức, Thuận Hoà, Thuận Đức, Đồng Hới, Quảng Bình"));
+  /* Footer mới (gói 26/11/2026): 2 dòng cuối + bỏ dòng Zalo bán hàng + nav chính sách giống Everon. */
+  const footer = (src.match(/<footer[\s\S]*?<\/footer>/) || [""])[0];
+  check("footer mới: có 2 dòng cuối (©2026 + GPDKKD + Liên hệ 241): " + rel, footer.includes('class="footer-bottom"') && footer.includes("©2026 Công ty TNHH Điệp Xuân. GPDKKD 3100349022. Địa chỉ: Khu làng nghề Thuận Đức, Đồng Hới, Quảng Trị.") && footer.includes("Liên hệ: 241 Trần Hưng Đạo, Nam Lý 2, Đồng Hới, Quảng Trị."));
+  check("footer mới: không còn dòng Zalo bán hàng, Zalo vẫn còn ở mục liên hệ: " + rel, !footer.includes("Zalo bán hàng") && src.includes("data-zalo-buttons"));
+  check("footer chính sách giống Everon: h3 + ul/li đủ 8 link: " + rel, footer.includes("<h3>Chính sách &amp; hỗ trợ</h3>") && footer.includes("<ul>") && (footer.match(/<li><a href="/g) || []).length === 8);
+  check("footer bố cục giống Everon: .footer-grid chứa div thương hiệu + nav chính sách: " + rel, footer.includes('<div class="footer-grid">') && footer.indexOf('class="footer-grid"') < footer.indexOf('class="footer-brand"') && footer.indexOf('class="footer-brand"') < footer.indexOf('class="footer-policy"') && footer.includes("      </nav>\n    </div>\n    <div class=\"footer-bottom\">"));
   check("header có logo Điệp Xuân tự host: " + rel, src.includes('src="assets/img/logo-diep-xuan.png"'));
 }
 check("logo Điệp Xuân tự host tồn tại (assets/img/logo-diep-xuan.png)", existsSync(join(root, "assets/img/logo-diep-xuan.png")));
@@ -185,7 +193,7 @@ const hero = (indexHtml.match(/<section class="hero">[\s\S]*?<\/section>/) || ["
 check("header gọn: hero không còn ô tìm kiếm", !indexHtml.includes("hero-search") && !hero.includes("<form"));
 check("header gọn: hero không còn nút Zalo rời", !hero.includes("data-zalo-buttons"));
 check("xóa nút xem SP: hero không còn nút \"Xem tất cả sản phẩm\"", !hero.includes("Xem tất cả sản phẩm"));
-check("header gọn: vẫn giữ nút Zalo ở showroom (id lien-he) + footer trang chủ", indexHtml.includes('id="lien-he" data-zalo-buttons') && indexHtml.includes('Zalo bán hàng: <span data-zalo-buttons></span>'));
+check("header gọn: vẫn giữ nút Zalo ở showroom (id lien-he); dòng Zalo bán hàng ở footer đã bỏ", indexHtml.includes('id="lien-he" data-zalo-buttons') && !indexHtml.includes("Zalo bán hàng"));
 check("header gọn: CSS không còn .hero-search / .drawer-zalo", !css.includes(".hero-search") && !css.includes(".drawer-zalo"));
 check("header gọn: CSS có kiểu nút liên hệ nổi (tròn trắng 60px, góc dưới-phải, z-index dưới header)", css.includes(".contact-fab") && css.includes("width: 60px") && css.includes("position: fixed") && css.includes("z-index: 15") && css.includes("body.fab-hidden .contact-fab"));
 check("header gọn: app.js chèn nút nổi 1 lần, đủ 4 lựa chọn", appJs.includes("mountContactFab") && appJs.includes("contactFabHTML") && appJs.includes("https://zalo.me/0911825151") && appJs.includes("https://zalo.me/0363089565") && appJs.includes("tel:0911825151") && appJs.includes("tel:0363089565"));
