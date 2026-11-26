@@ -70,6 +70,16 @@ check("CSS dải ảnh nhỏ trượt ngang", css.includes(".thumbs") && css.inc
 check("CSS có chip danh mục con", css.includes(".chip"));
 check("CSS có ô tìm kiếm header", css.includes(".header-search"));
 check("CSS có kiểu dropdown menu Sản phẩm", css.includes(".nav-panel") && css.includes(".nav-drop") && css.includes(".nav-group"));
+/* Căn hàng dọc menu header (hồi quy: mục "Sản phẩm" từng cao hơn 3 mục
+   còn lại 6px vì link lồng trong .nav-drop vẫn inline — đo thật bằng
+   Chromium ở 1473/1280/1024px; sau fix lệch 0,00px ở cả 3 cỡ). */
+const desk721 = (css.match(/@media \(min-width: 721px\) \{[\s\S]*?\n\}/) || [""])[0];
+check("CSS căn hàng menu desktop: .nav-drop thành flex trong @media (min-width: 721px)", desk721.includes(".nav-drop { display: flex; align-items: center; }"));
+check("CSS căn giữa mũi tên ▾ với chữ: .nav-drop-link thành inline-flex", desk721.includes(".nav-drop-link { display: inline-flex; align-items: center; }"));
+const mobStart = css.indexOf("@media (max-width: 720px)");
+const mobEnd = css.indexOf("@media (max-width: 480px)", mobStart);
+const mob720 = mobStart >= 0 && mobEnd > mobStart ? css.slice(mobStart, mobEnd) : "";
+check("CSS mobile (≤720px) giữ .nav-drop là block, panel accordion xếp dưới link (không dính display:flex desktop)", mob720.includes(".nav-drop { position: static; }") && !/\.nav-drop \{[^}]*display:\s*flex/.test(mob720));
 check("CSS có kiểu nút hamburger + drawer trượt từ phải (mobile)", css.includes(".nav-toggle") && css.includes(".site-header.nav-open .main-nav") && css.includes("translateX(102%)") && css.includes("min(320px, 85vw)"));
 check("CSS drawer cao 100dvh (fallback 100vh) + backdrop mờ", css.includes("100dvh") && css.includes("rgba(0, 0, 0, .5)") && css.includes(".nav-backdrop"));
 check("CSS header mobile 2 hàng: logo + ☰ hàng 1, tìm kiếm full-width hàng 2", css.includes("flex: 1 1 100%") && css.includes("order: 3") && css.includes("margin-left: auto"));
