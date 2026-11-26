@@ -192,6 +192,26 @@ body.fab-hidden .contact-fab { display: none; }
   .nav-drop { display: flex; align-items: center; }
   .nav-drop-link { display: inline-flex; align-items: center; }
 }
+/* ---------- Header 3 dòng ở màn hình medium (tablet 721–1023px) ---------- */
+/* Nguyên nhân nhảy (đo thật bằng Chromium 26/11/2026): ở dải này header
+   là 1 flex row có flex-wrap: wrap, không có breakpoint riêng nên các
+   mục rớt hàng lần lượt theo chiều rộng — nút "Gọi showroom" rớt trước
+   (đã rớt ở 820–834px, nằm lẻ loi 1 mình hàng 2 bên trái), rồi tới nav
+   "Sản phẩm" (rớt ở 768px, xuống hàng 2 bên phải nhờ margin-left:
+   auto) — chiều cao header nhảy 81px ↔ 136px, các mục đổi hàng/đổi bên
+   theo từng cỡ. Fix: khóa hẳn 3 hàng cố định ở dải này — hàng 1 logo +
+   Gọi showroom, hàng 2 tìm kiếm full-width, hàng 3 nav ngang; không
+   dùng drawer (nút ☰ ẩn như desktop). Desktop ≥1024px giữ 1 hàng,
+   mobile ≤720px giữ drawer như cũ. */
+@media (min-width: 721px) and (max-width: 1023px) {
+  .site-header .wrap { flex-wrap: wrap; gap: 10px 16px; }
+  .brand { order: 1; }
+  .header-call { order: 2; margin-left: auto; }
+  .header-search { order: 3; flex: 1 1 100%; max-width: none; }
+  .header-search input, .header-search button { font-size: 16px; } /* iPad cũng tự zoom khi chạm ô tìm nếu <16px */
+  .main-nav { order: 4; flex: 1 1 100%; margin-left: 0; }
+  .nav-toggle { display: none; }
+}
 .nav-panel {
   display: none;
   position: absolute;
