@@ -47,6 +47,7 @@ a { color: var(--brand); }
   flex-wrap: wrap;
   padding-top: 10px;
   padding-bottom: 10px;
+  position: relative; /* neo panel dropdown: cạnh phải panel trùng mép phải header */
 }
 .brand { color: #fff; text-decoration: none; line-height: 1.2; }
 .brand-lockup { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
@@ -98,6 +99,70 @@ a { color: var(--brand); }
   font-size: 14.5px;
   font-weight: 700;
   cursor: pointer;
+}
+
+/* ---------- Menu Sản phẩm (dropdown) ---------- */
+/* Tham khảo menu "Sản phẩm" của trang nguồn DreamLand (tiêu đề nhóm +
+   danh sách danh mục con theo cột) và mega-menu của Everon (các nhóm
+   xếp cột,
+   nhóm nhiều con chia nhiều cột). Panel giới hạn chiều cao và cuộn dọc
+   để không vượt viewport. */
+.nav-toggle { display: none; }
+.nav-drop-link .caret { font-size: 11px; }
+.nav-panel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: min(920px, calc(100vw - 32px));
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 14px 34px rgba(16, 35, 58, .22);
+  padding: 14px 18px 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 22px;
+  z-index: 30;
+}
+/* Desktop: mở bằng hover / focus-within (chuột, bàn phím) và bằng
+   click toggle qua class .open (màn cảm ứng). */
+.nav-drop:hover .nav-panel, .nav-drop:focus-within .nav-panel, .nav-drop.open .nav-panel { display: grid; }
+.nav-group { min-width: 0; }
+.nav-group--wide { grid-column: 1 / -1; }
+.nav-group--wide .nav-group-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 22px; }
+.main-nav .nav-group-title {
+  display: block;
+  font-weight: 800;
+  font-size: 14.5px;
+  color: var(--navy);
+  text-decoration: none;
+  padding: 6px 0 4px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 4px;
+}
+.main-nav .nav-group-title:hover { color: var(--brand); }
+.main-nav .nav-group-links a {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 4px 0;
+}
+.main-nav .nav-group-links a:hover { color: var(--brand); text-decoration: underline; }
+.main-nav .nav-all {
+  grid-column: 1 / -1;
+  display: block;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-weight: 700;
+  color: var(--brand);
+  text-decoration: none;
+  font-size: 14.5px;
 }
 
 /* ---------- Hero ---------- */
@@ -436,11 +501,51 @@ main { padding: 8px 0 40px; }
      còn 2 hàng: hàng 1 là logo + ô tìm kiếm, hàng 2 là menu trượt ngang
      1 dòng. Áp tới 720px (trước đây chỉ ≤480px nên khổ 600px vẫn cao). */
   .site-header .wrap { gap: 8px 12px; padding-top: 8px; padding-bottom: 8px; }
-  .brand span { display: none; } /* ẩn tagline dài, thông tin còn ở footer/showroom */
-  .header-search { flex: 1 1 0; max-width: none; }
-  .main-nav { flex: 1 1 100%; margin-left: 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .brand > span:last-child { display: none; } /* chỉ ẩn tagline dài, giữ logo chữ (selector cũ .brand span ẩn cả .brand-lockup nên mobile mất logo) */
+  .header-search { flex: 1 1 0; max-width: none; min-width: 0; } /* co được để nút ☰ vừa hàng 1 */
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  /* Nav thành panel dọc, mặc định ẩn, bấm ☰ mới mở. */
+  .main-nav { display: none; flex: 1 1 100%; margin-left: 0; flex-direction: column; flex-wrap: nowrap; overflow: visible; gap: 0; }
+  .main-nav.open { display: flex; max-height: calc(100vh - 110px); overflow-y: auto; } /* nav mở cuộn trong khung, không đội header sticky vượt viewport */
   .main-nav::-webkit-scrollbar { display: none; }
-  .main-nav a { padding: 7px 8px; font-size: 14px; }
+  .main-nav a { padding: 10px 8px; font-size: 14px; }
+  /* Dropdown thành accordion inline trong panel dọc: chỉ mở bằng tap
+     (class .open), không mở bằng hover như desktop. */
+  .nav-drop { position: static; }
+  .nav-panel {
+    position: static;
+    display: none;
+    width: auto;
+    max-height: none;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 0 4px 14px;
+    grid-template-columns: 1fr;
+  }
+  .nav-drop:hover .nav-panel, .nav-drop:focus-within .nav-panel { display: none; }
+  .nav-drop.open .nav-panel, .nav-drop.open:hover .nav-panel, .nav-drop.open:focus-within .nav-panel { display: grid; }
+  .nav-group--wide { grid-column: auto; }
+  .nav-group--wide .nav-group-links { display: flex; flex-direction: column; }
+  .main-nav .nav-group-title { color: #fff; border-bottom-color: rgba(255, 255, 255, .2); }
+  .main-nav .nav-group-links a { color: #dbe6f2; }
+  .main-nav .nav-all { color: var(--gold); border-top-color: rgba(255, 255, 255, .2); }
   .header-call { display: none; }
 }
 
