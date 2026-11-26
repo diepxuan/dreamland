@@ -91,6 +91,7 @@ check("CSS dropdown Bộ sưu tập chia 3 cột, giới hạn chiều cao + cu�
 check("CSS có kiểu nút biến thể mờ (disabled)", css.includes(".opt:disabled"));
 check("CSS có lưới 2 địa điểm", css.includes(".loc-grid") && css.includes(".loc-card"));
 check("footer mới: CSS có .footer-bottom + .footer-policy h3/ul/li (giống Everon)", css.includes(".footer-bottom") && css.includes(".footer-policy h3") && css.includes(".footer-policy ul") && css.includes(".footer-policy li"));
+check("footer mới: CSS có lưới .footer-grid 1 cột mobile + 2fr 1fr từ 720px (giống Everon)", css.includes(".footer-grid") && css.includes("grid-template-columns: 1fr") && css.includes("grid-template-columns: 2fr 1fr") && css.includes("@media (min-width: 720px)"));
 const favicon = existsSync(join(root, "favicon.svg")) ? readFileSync(join(root, "favicon.svg"), "utf8") : "";
 check("favicon.svg tồn tại, là SVG hợp lệ, chữ D nền navy", favicon.includes("<svg") && favicon.includes(">D<") && favicon.includes("#10233a"));
 /* 2 địa điểm theo Google Business Profile (đã xác nhận 25/11/2026). */
@@ -167,6 +168,7 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
   check("footer mới: có 2 dòng cuối (©2026 + GPDKKD + Liên hệ 241): " + rel, footer.includes('class="footer-bottom"') && footer.includes("©2026 Công ty TNHH Điệp Xuân. GPDKKD 3100349022. Địa chỉ: Khu làng nghề Thuận Đức, Đồng Hới, Quảng Trị.") && footer.includes("Liên hệ: 241 Trần Hưng Đạo, Nam Lý 2, Đồng Hới, Quảng Trị."));
   check("footer mới: không còn dòng Zalo bán hàng, Zalo vẫn còn ở mục liên hệ: " + rel, !footer.includes("Zalo bán hàng") && src.includes("data-zalo-buttons"));
   check("footer chính sách giống Everon: h3 + ul/li đủ 8 link: " + rel, footer.includes("<h3>Chính sách &amp; hỗ trợ</h3>") && footer.includes("<ul>") && (footer.match(/<li><a href="/g) || []).length === 8);
+  check("footer bố cục giống Everon: .footer-grid chứa div thương hiệu + nav chính sách: " + rel, footer.includes('<div class="footer-grid">') && footer.indexOf('class="footer-grid"') < footer.indexOf('class="footer-brand"') && footer.indexOf('class="footer-brand"') < footer.indexOf('class="footer-policy"') && footer.includes("      </nav>\n    </div>\n    <div class=\"footer-bottom\">"));
   check("header có logo Điệp Xuân tự host: " + rel, src.includes('src="assets/img/logo-diep-xuan.png"'));
 }
 check("logo Điệp Xuân tự host tồn tại (assets/img/logo-diep-xuan.png)", existsSync(join(root, "assets/img/logo-diep-xuan.png")));
