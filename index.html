@@ -17,9 +17,13 @@
       <input type="search" name="q" placeholder="Tìm tên hoặc mã sản phẩm…" aria-label="Tìm kiếm sản phẩm">
       <button type="submit">Tìm</button>
     </form>
-    <nav class="main-nav" aria-label="Menu chính">
-      <a href="index.html" class="active">Trang chủ</a>
-      <a href="danh-muc.html">Danh mục</a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="main-nav" id="main-nav" aria-label="Menu chính">
+      <a href="index.html" data-nav="home" class="active">Trang chủ</a>
+      <div class="nav-drop">
+        <a href="danh-muc.html" class="nav-drop-link" data-nav="products" aria-haspopup="true" aria-expanded="false">Sản phẩm <span class="caret">▾</span></a>
+        <div class="nav-panel" id="nav-panel"></div>
+      </div>
       <a href="#showroom">Showroom</a>
       <a href="#lien-he">Liên hệ</a>
     </nav>
@@ -62,12 +66,6 @@
           <p>Không cần tạo tài khoản, không cần giỏ hàng. Chọn mẫu, nhắn Zalo cho nhân viên bán hàng, nhân viên tư vấn và chốt đơn.</p>
         </div>
       </div>
-    </section>
-
-    <section class="section" aria-labelledby="cat-title">
-      <h2 id="cat-title">Danh mục sản phẩm</h2>
-      <p class="lead">Đầy đủ 6 nhóm danh mục, 128 danh mục con — từ Bộ sưu tập, Chăn, Đệm đến Ruột gối, Ruột chăn và Phụ kiện.</p>
-      <div class="cat-grid" id="category-grid"></div>
     </section>
 
     <section class="section" aria-labelledby="feat-title">
