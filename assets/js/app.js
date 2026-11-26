@@ -429,21 +429,43 @@
     var html = roots.map(function (r) {
       var kids = childCategories(categories, r.id);
       var wide = kids.length > 12 ? " nav-group--wide" : "";
-      var links = kids.map(function (k) {
-        return '<a href="' + esc(categoryUrl(k.id)) + '">' + esc(k.name) + "</a>";
-      }).join("");
+      /* Link "Xem tất cả <nhóm>" đứng đầu danh sách con: trên mobile,
+         bấm tiêu đề nhóm chỉ mở/đóng các con (không chuyển trang) nên
+         trang của nhóm tới được qua link này. Trên desktop link này
+         ẩn bằng CSS, tiêu đề nhóm vẫn là link bình thường. */
+      var links = '<a class="nav-group-all" href="' + esc(categoryUrl(r.id)) + '">Xem tất cả ' + esc(menuLabel(r)) + ' →</a>' +
+        kids.map(function (k) {
+          return '<a href="' + esc(categoryUrl(k.id)) + '">' + esc(k.name) + "</a>";
+        }).join("");
+      /* Số lượng trong .nav-count và dấu ▾ trong .nav-caret chỉ hiện
+         ở mobile (CSS ẩn trên desktop); số lượng để khách thấy ngay
+         nhóm có bao nhiêu danh mục con trước khi mở. */
       return '<div class="nav-group' + wide + '">' +
-        '<a class="nav-group-title" href="' + esc(categoryUrl(r.id)) + '">' + esc(menuLabel(r)) + "</a>" +
+        '<a class="nav-group-title" href="' + esc(categoryUrl(r.id)) + '" aria-expanded="false">' + esc(menuLabel(r)) + ' <span class="nav-count">(' + kids.length + ')</span><span class="nav-caret">▾</span></a>' +
         '<div class="nav-group-links">' + links + "</div></div>";
     }).join("");
     html += '<a class="nav-all" href="' + esc(ROOT + "danh-muc.html") + '">Xem tất cả sản phẩm →</a>';
     panel.innerHTML = html;
+  }
+  /* Mobile (≤720px) mới chặn điều hướng ở tiêu đề nhóm; desktop tiêu
+     đề là link bình thường, các con luôn hiện nên không cần chặn. */
+  function isMobileNav() {
+    return typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 720px)").matches;
+  }
+  function closeAllNavGroups() {
+    var groups = document.querySelectorAll(".nav-group.open");
+    for (var i = 0; i < groups.length; i++) {
+      groups[i].classList.remove("open");
+      var t = groups[i].querySelector ? groups[i].querySelector(".nav-group-title") : null;
+      if (t) t.setAttribute("aria-expanded", "false");
+    }
   }
   function closeNavMenu() {
     var drop = document.querySelector(".nav-drop");
     if (drop && drop.classList) drop.classList.remove("open");
     var link = document.querySelector('[data-nav="products"]');
     if (link) link.setAttribute("aria-expanded", "false");
+    closeAllNavGroups(); /* mobile: thu hết các nhóm con khi đóng panel */
   }
   /* Mục đang xem: trang chủ thì "Trang chủ" active, trang danh mục /
      chi tiết thì "Sản phẩm" active. Trang chủ giữ class active tĩnh
@@ -478,24 +500,187 @@
         }
       });
     }
-    /* Nút hamburger (chỉ hiện ở mobile ≤720px): mở-đóng nav dọc. */
-    var toggle = document.getElementById("nav-toggle");
-    var nav = document.getElementById("main-nav");
-    if (toggle && nav) {
-      toggle.addEventListener("click", function () {
-        var isOpen = nav.classList.contains("open");
-        if (isOpen) nav.classList.remove("open");
-        else nav.classList.add("open");
-        toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+    /* Accordion 2 tầng ở mobile: bấm "Sản phẩm" chỉ hiện 6 tiêu đề
+       nhóm; bấm 1 tiêu đề nhóm mới mở các mục con của nhóm đó, đồng
+       thời đóng các nhóm khác (một lúc chỉ 1 nhóm mở). Desktop không
+       chặn: tiêu đề nhóm là link bình thường, các con luôn hiện. */
+    var panel = document.getElementById("nav-panel");
+    if (panel) {
+      panel.addEventListener("click", function (e) {
+        var t = e.target;
+        var title = t && t.closest ? t.closest(".nav-group-title") : null;
+        if (!title || !isMobileNav()) return;
+        e.preventDefault();
+        var group = title.parentNode;
+        var wasOpen = group && group.classList ? group.classList.contains("open") : false;
+        closeAllNavGroups();
+        if (!wasOpen && group && group.classList) {
+          group.classList.add("open");
+          title.setAttribute("aria-expanded", "true");
+        }
       });
     }
+    /* ---------- Drawer trượt từ phải (mobile ≤720px) ---------- */
+    /* Kiểu menu Facebook trên điện thoại / menu app Muse: nav thành
+       drawer fixed neo mép phải, trượt vào bằng transform; backdrop
+       mờ; khoá cuộn body khi mở. Mở bằng: nút ☰, vuốt từ mép phải
+       sang trái. Đóng bằng: vuốt drawer sang phải, bấm backdrop /
+       nút ✕ / nút ☰, phím Esc. Trạng thái nằm ở class nav-open trên
+       .site-header để CSS điều khiển cả drawer lẫn backdrop cùng lúc.
+       Nút ☰ đổi thành ✕ khi drawer mở. Desktop không dùng. */
+    function drawerHeader() {
+      var h = document.querySelector(".site-header");
+      return h && h.classList ? h : null;
+    }
+    function isDrawerOpen() {
+      var h = drawerHeader();
+      return !!h && h.classList.contains("nav-open");
+    }
+    function lockBodyScroll(lock) {
+      var b = document.body;
+      if (b && b.style) b.style.overflow = lock ? "hidden" : "";
+    }
+    function setDrawer(open) {
+      var header = drawerHeader();
+      if (!header) return;
+      var nav = document.getElementById("main-nav");
+      var toggle = document.getElementById("nav-toggle");
+      if (nav) { nav.style.transform = ""; nav.style.transition = ""; }
+      var bd = document.getElementById("nav-backdrop");
+      if (bd) bd.style.opacity = "";
+      if (open) {
+        header.classList.add("nav-open");
+        if (toggle) {
+          toggle.textContent = "✕";
+          toggle.setAttribute("aria-expanded", "true");
+          toggle.setAttribute("aria-label", "Đóng menu");
+        }
+        lockBodyScroll(true);
+      } else {
+        header.classList.remove("nav-open");
+        header.classList.remove("nav-dragging");
+        if (toggle) {
+          toggle.textContent = "☰";
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Mở menu");
+        }
+        lockBodyScroll(false);
+        closeAllNavGroups(); /* đóng drawer thì thu hết các nhóm con */
+      }
+    }
+    var toggle = document.getElementById("nav-toggle");
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        setDrawer(!isDrawerOpen());
+      });
+    }
+    var drawerClose = document.getElementById("drawer-close");
+    if (drawerClose) {
+      drawerClose.addEventListener("click", function () { setDrawer(false); });
+    }
+    var backdrop = document.getElementById("nav-backdrop");
+    if (backdrop) {
+      backdrop.addEventListener("click", function () { setDrawer(false); });
+    }
+    /* Vuốt mở/đóng (touch, không thư viện). Chỉ can thiệp vuốt NGANG:
+       - Mở: bắt đầu trong ~30px mép phải, kéo sang trái.
+       - Đóng: drawer đang mở, bắt đầu trên drawer/backdrop, kéo sang phải.
+       Vuốt dọc (cuộn trang / cuộn drawer) không bị chặn: listener
+       passive, không preventDefault, chỉ theo dõi khi ngang thắng dọc.
+       Kéo theo tay: translateX bám ngón tay; thả thì mở/đóng theo
+       quãng kéo + vận tốc. */
+    var swipe = null;
+    /* Đọc điểm chạm qua changedTouches (ngón tay vừa thay đổi), không
+       qua touches[0]: nếu trình duyệt còn giữ một điểm chạm cũ chưa
+       kết thúc sạch (đa chạm / chuỗi touch bị ngắt), touches[0] có
+       thể là điểm cũ đó, còn changedTouches luôn là ngón tay đang
+       vuốt. */
+    function touchPoint(e) {
+      if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0];
+      if (e.touches && e.touches[0]) return e.touches[0];
+      return null;
+    }
+    function swipeStart(e) {
+      if (!isMobileNav()) return;
+      var t = touchPoint(e);
+      if (!t) return;
+      if (t.target && t.target.closest && (t.target.closest(".nav-toggle") || t.target.closest(".drawer-close"))) return;
+      if (isDrawerOpen()) {
+        if (t.target && t.target.closest && (t.target.closest(".main-nav") || t.target.closest(".nav-backdrop"))) {
+          swipe = { x0: t.clientX, y0: t.clientY, t0: Date.now(), mode: "close" };
+        }
+      } else if (typeof window !== "undefined" && window.innerWidth && t.clientX >= window.innerWidth - 30) {
+        swipe = { x0: t.clientX, y0: t.clientY, t0: Date.now(), mode: "open" };
+      }
+    }
+    function swipeMove(e) {
+      if (!swipe) return;
+      var t = touchPoint(e);
+      if (!t) return;
+      var dx = t.clientX - swipe.x0;
+      var dy = t.clientY - swipe.y0;
+      if (swipe.dir === undefined) {
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) { swipe = null; return; }
+        if (Math.abs(dx) < 8) return;
+        swipe.dir = "x";
+        var header = drawerHeader();
+        if (header) header.classList.add("nav-dragging");
+        var nav0 = document.getElementById("main-nav");
+        if (nav0) nav0.style.transition = "none";
+      }
+      var nav = document.getElementById("main-nav");
+      if (!nav) return;
+      var w = (nav.getBoundingClientRect && nav.getBoundingClientRect().width) || 320;
+      var off;
+      if (swipe.mode === "open") off = Math.min(w, Math.max(0, w + dx));
+      else off = Math.min(w, Math.max(0, dx));
+      nav.style.transform = "translateX(" + off + "px)";
+      var bd = document.getElementById("nav-backdrop");
+      if (bd) bd.style.opacity = String(0.5 * (1 - off / w));
+      swipe.off = off;
+      swipe.w = w;
+      swipe.x = t.clientX;
+    }
+    function swipeEnd() {
+      if (!swipe) return;
+      var s = swipe;
+      swipe = null;
+      var header = drawerHeader();
+      if (header) header.classList.remove("nav-dragging");
+      var nav = document.getElementById("main-nav");
+      if (nav) { nav.style.transform = ""; nav.style.transition = ""; }
+      var bd = document.getElementById("nav-backdrop");
+      if (bd) bd.style.opacity = "";
+      if (s.dir !== "x" || s.off === undefined) return;
+      var dt = Math.max(1, Date.now() - s.t0);
+      var vx = (s.x - s.x0) / dt; /* px/ms: âm = sang trái, dương = sang phải */
+      var progress = s.mode === "open" ? 1 - s.off / s.w : s.off / s.w;
+      /* Thả tay: mở/đóng khi kéo quá 30% chiều rộng drawer, hoặc vuốt
+         nhanh đúng hướng (vận tốc > 0.4 px/ms) khi đã kéo quá 10%. */
+      if (s.mode === "open") setDrawer(progress > 0.3 || (vx < -0.4 && progress > 0.1));
+      else setDrawer(!(progress > 0.3 || (vx > 0.4 && progress > 0.1)));
+    }
     if (document.addEventListener) {
+      document.addEventListener("touchstart", swipeStart, { passive: true });
+      document.addEventListener("touchmove", swipeMove, { passive: true });
+      document.addEventListener("touchend", swipeEnd, { passive: true });
+      document.addEventListener("touchcancel", swipeEnd, { passive: true });
       document.addEventListener("click", function (e) {
         var t = e.target;
         if (!t || !t.closest || !t.closest(".nav-drop")) closeNavMenu();
       });
       document.addEventListener("keydown", function (e) {
-        if (e && e.key === "Escape") closeNavMenu();
+        if (e && e.key === "Escape") {
+          closeNavMenu();
+          setDrawer(false);
+        }
+      });
+    }
+    /* Đổi khổ màn hình sang desktop khi drawer đang mở thì đóng drawer
+       (tránh khoá cuộn body kẹt lại). */
+    if (typeof window !== "undefined" && window.addEventListener) {
+      window.addEventListener("resize", function () {
+        if (!isMobileNav() && isDrawerOpen()) setDrawer(false);
       });
     }
   }

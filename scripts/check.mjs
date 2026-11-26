@@ -59,7 +59,7 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
   check("HTML không có slider trang chủ: " + f.replace(root + "/", ""), !/slider/i.test(src));
   check("HTML có logo chữ DREAMLAND + ĐIỆP XUÂN: " + f.replace(root + "/", ""), src.includes("DREAMLAND") && src.includes("ĐIỆP XUÂN"));
   check("HTML có link favicon.svg: " + f.replace(root + "/", ""), src.includes('href="favicon.svg"'));
-  check("HTML có menu Sản phẩm + nút hamburger: " + f.replace(root + "/", ""), src.includes('data-nav="products"') && src.includes("Sản phẩm") && src.includes('class="nav-toggle"') && src.includes("☰"));
+  check("HTML có menu Sản phẩm + nút hamburger + drawer mobile: " + f.replace(root + "/", ""), src.includes('data-nav="products"') && src.includes("Sản phẩm") && src.includes('class="nav-toggle"') && src.includes("☰") && src.includes('class="drawer-head"') && src.includes('id="nav-backdrop"') && src.includes('class="drawer-zalo"') && src.includes('id="drawer-close"'));
 }
 const css = readFileSync(join(root, "assets/css/style.css"), "utf8");
 check("CSS có breakpoint mobile 480px", css.includes("@media (max-width: 480px)"));
@@ -70,7 +70,13 @@ check("CSS dải ảnh nhỏ trượt ngang", css.includes(".thumbs") && css.inc
 check("CSS có chip danh mục con", css.includes(".chip"));
 check("CSS có ô tìm kiếm header", css.includes(".header-search"));
 check("CSS có kiểu dropdown menu Sản phẩm", css.includes(".nav-panel") && css.includes(".nav-drop") && css.includes(".nav-group"));
-check("CSS có kiểu nút hamburger + nav dọc mobile", css.includes(".nav-toggle") && css.includes(".main-nav.open"));
+check("CSS có kiểu nút hamburger + drawer trượt từ phải (mobile)", css.includes(".nav-toggle") && css.includes(".site-header.nav-open .main-nav") && css.includes("translateX(102%)") && css.includes("min(320px, 85vw)"));
+check("CSS drawer cao 100dvh (fallback 100vh) + backdrop mờ", css.includes("100dvh") && css.includes("rgba(0, 0, 0, .5)") && css.includes(".nav-backdrop"));
+check("CSS header mobile 2 hàng: logo + ☰ hàng 1, tìm kiếm full-width hàng 2", css.includes("flex: 1 1 100%") && css.includes("order: 3") && css.includes("margin-left: auto"));
+check("CSS ô tìm kiếm mobile 16px (iOS không tự zoom)", css.includes(".header-search input, .header-search button { font-size: 16px; }"));
+check("CSS active mobile nhẹ: vạch vàng trái, không pill xám", css.includes(".main-nav a.active, .nav-drop.open > .nav-drop-link") && css.includes("border-left-color: var(--gold)") && css.includes("background: transparent"));
+check("CSS accordion mobile: nhóm con mặc định đóng, mở theo nhóm", css.includes(".nav-group-links { display: none; }") && css.includes(".nav-group.open .nav-group-links"));
+check("CSS dấu ▾ xoay khi mở (class .open)", css.includes("transform: rotate(180deg)") && css.includes(".nav-group.open .nav-group-title .nav-caret"));
 check("CSS dropdown Bộ sưu tập chia 3 cột, giới hạn chiều cao + cuộn dọc", css.includes(".nav-group--wide") && css.includes("max-height: calc(100vh - 90px)") && css.includes("overflow-y: auto"));
 check("CSS có kiểu nút biến thể mờ (disabled)", css.includes(".opt:disabled"));
 check("CSS có lưới 2 địa điểm", css.includes(".loc-grid") && css.includes(".loc-card"));
@@ -111,7 +117,9 @@ check("app.js vẽ địa điểm từ site.locations", appJs.includes("[data-lo
 check("app.js có placeholder ảnh + hiện Liên hệ khi giá 0", appJs.includes("PLACEHOLDER") && appJs.includes("Liên hệ") && appJs.includes("priceText"));
 check("app.js có logic trục biến thể từ biến thể thật", appJs.includes("variantAxes") && appJs.includes("matchVariant") && appJs.includes("otherValueOf"));
 check("app.js tìm sản phẩm theo id (72 SP không có SKU)", appJs.includes("findProduct") && appJs.includes("productKey"));
-check("app.js render menu Sản phẩm từ categories", appJs.includes("renderNavMenu") && appJs.includes("childCategories") && appJs.includes("nav-panel"));
+check("app.js render menu Sản phẩm từ categories", appJs.includes("renderNavMenu") && appJs.includes("childCategories") && appJs.includes("nav-panel") && appJs.includes("nav-count") && appJs.includes("nav-group-all"));
+check("app.js accordion 2 tầng mobile: bấm tiêu đề nhóm mở/đóng, 1 nhóm mở tại 1 thời điểm", appJs.includes("closeAllNavGroups") && appJs.includes("isMobileNav") && appJs.includes("nav-group-title"));
+check("app.js drawer trượt + vuốt mở/đóng (touch, mép phải 30px)", appJs.includes("setDrawer") && appJs.includes("nav-open") && appJs.includes("touchstart") && appJs.includes("touchend") && appJs.includes("innerWidth - 30") && appJs.includes("lockBodyScroll"));
 check("app.js không còn render lưới danh mục trang chủ", !appJs.includes("category-grid"));
 check("app.js tự set active cho menu theo trang", appJs.includes("setNavActive") && appJs.includes('data-nav="products"') && appJs.includes('data-nav="home"'));
 check("app.js có nút hamburger + đóng menu bằng Esc / bấm ra ngoài", appJs.includes("nav-toggle") && appJs.includes("Escape") && appJs.includes("closeNavMenu"));
@@ -220,19 +228,31 @@ const categories = JSON.parse(readFileSync(join(root, "data/categories.json"), "
   const expectedKids = { "Bộ sưu tập": 37, "Chăn": 5, "Đệm": 4, "Ruột chăn": 5, "Ruột gối": 8, "Phụ kiện": 9 };
   const navGroups = navHtml.split(/<div class="nav-group[\s"]/).slice(1);
   const countsOk = navGroups.length === 6 && navGroups.every((g) => {
-    const title = (g.match(/nav-group-title"[^>]*>([^<]+)</) || [])[1];
-    const links = (g.match(/href="(\.\/)?danh-muc\.html\?cat=/g) || []).length;
-    return title && expectedKids[title] === links - 1; /* trừ link tiêu đề nhóm */
+    const title = ((g.match(/nav-group-title"[^>]*>([^<]+)/) || [])[1] || "").trim();
+    /* Đếm con trong div nav-group-links, trừ link "Xem tất cả <nhóm>". */
+    const linksDiv = (g.match(/nav-group-links">([\s\S]*?)<\/div>/) || [])[1] || "";
+    const links = (linksDiv.match(/href="(\.\/)?danh-muc\.html\?cat=/g) || []).length;
+    return title && expectedKids[title] === links - 1;
   });
   check("menu: đủ số con mỗi nhóm (Bộ sưu tập 37, Chăn 5, Đệm 4, Ruột chăn 5, Ruột gối 8, Phụ kiện 9)", countsOk);
+  check(
+    "menu: tiêu đề nhóm hiện đúng số lượng (nav-count)",
+    Object.entries(expectedKids).every(([name, n]) => navHtml.includes(">" + name + ' <span class="nav-count">(' + n + ")</span>"))
+  );
+  check(
+    "menu: mỗi nhóm có link Xem tất cả <nhóm> + dấu ▾",
+    (navHtml.match(/class="nav-group-all"/g) || []).length === 6 &&
+      Object.keys(expectedKids).every((name) => navHtml.includes("Xem tất cả " + name + " →")) &&
+      (navHtml.match(/class="nav-caret">▾<\/span>/g) || []).length === 6
+  );
   check(
     "menu: link con đúng dạng danh-muc.html?cat=",
     (navHtml.match(/href="([^"]+)"/g) || []).every((h) => /^href="(\.\/)?danh-muc\.html\?cat=[^"]+"$/.test(h) || h === 'href="./danh-muc.html"')
   );
   check(
     "menu: nhãn gọn Ruột chăn / Ruột gối, link đúng nhóm",
-    navHtml.includes('href="./danh-muc.html?cat=cac-loai-ruot-chan">Ruột chăn</a>') &&
-    navHtml.includes('href="./danh-muc.html?cat=cac-loai-ruot-goi">Ruột gối</a>')
+    navHtml.includes('href="./danh-muc.html?cat=cac-loai-ruot-chan" aria-expanded="false">Ruột chăn <span class="nav-count">(5)</span>') &&
+    navHtml.includes('href="./danh-muc.html?cat=cac-loai-ruot-goi" aria-expanded="false">Ruột gối <span class="nav-count">(8)</span>')
   );
   check("menu: có link Xem tất cả sản phẩm", navHtml.includes('class="nav-all"') && navHtml.includes("Xem tất cả sản phẩm"));
   check("menu: nhóm Bộ sưu tập chia 3 cột (nav-group--wide)", navHtml.includes("nav-group--wide"));
