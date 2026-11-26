@@ -59,7 +59,7 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
   check("HTML không có slider trang chủ: " + f.replace(root + "/", ""), !/slider/i.test(src));
   check("HTML có logo chữ DREAMLAND + ĐIỆP XUÂN: " + f.replace(root + "/", ""), src.includes("DREAMLAND") && src.includes("ĐIỆP XUÂN"));
   check("HTML có link favicon.svg: " + f.replace(root + "/", ""), src.includes('href="favicon.svg"'));
-  check("HTML có menu Sản phẩm + nút hamburger + drawer mobile: " + f.replace(root + "/", ""), src.includes('data-nav="products"') && src.includes("Sản phẩm") && src.includes('class="nav-toggle"') && src.includes("☰") && src.includes('class="drawer-head"') && src.includes('id="nav-backdrop"') && src.includes('class="drawer-zalo"') && src.includes('id="drawer-close"'));
+  check("HTML có menu Sản phẩm + nút hamburger + drawer mobile: " + f.replace(root + "/", ""), src.includes('data-nav="products"') && src.includes("Sản phẩm") && src.includes('class="nav-toggle"') && src.includes("☰") && src.includes('class="drawer-head"') && src.includes('id="nav-backdrop"') && src.includes('id="drawer-close"'));
 }
 const css = readFileSync(join(root, "assets/css/style.css"), "utf8");
 check("CSS có breakpoint mobile 480px", css.includes("@media (max-width: 480px)"));
@@ -84,7 +84,7 @@ check("CSS có kiểu nút hamburger + drawer trượt từ phải (mobile)", cs
 check("CSS drawer cao 100dvh (fallback 100vh) + backdrop mờ", css.includes("100dvh") && css.includes("rgba(0, 0, 0, .5)") && css.includes(".nav-backdrop"));
 check("CSS header mobile 2 hàng: logo + ☰ hàng 1, tìm kiếm full-width hàng 2", css.includes("flex: 1 1 100%") && css.includes("order: 3") && css.includes("margin-left: auto"));
 check("CSS ô tìm kiếm mobile 16px (iOS không tự zoom)", css.includes(".header-search input, .header-search button { font-size: 16px; }"));
-check("CSS active mobile nhẹ: vạch vàng trái, không pill xám", css.includes(".main-nav a.active, .nav-drop.open > .nav-drop-link") && css.includes("border-left-color: var(--gold)") && css.includes("background: transparent"));
+check("CSS active mobile nhẹ: vạch đỏ nâu trái, không pill xám", css.includes(".main-nav a.active, .nav-drop.open > .nav-drop-link") && css.includes("border-left-color: var(--rust-light)") && css.includes("background: transparent"));
 check("CSS accordion mobile: nhóm con mặc định đóng, mở theo nhóm", css.includes(".nav-group-links { display: none; }") && css.includes(".nav-group.open .nav-group-links"));
 check("CSS dấu ▾ xoay khi mở (class .open)", css.includes("transform: rotate(180deg)") && css.includes(".nav-group.open .nav-group-title .nav-caret"));
 check("CSS dropdown Bộ sưu tập chia 3 cột, giới hạn chiều cao + cuộn dọc", css.includes(".nav-group--wide") && css.includes("max-height: calc(100vh - 90px)") && css.includes("overflow-y: auto"));
@@ -118,7 +118,7 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
 }
 const indexHtml = readFileSync(join(root, "index.html"), "utf8");
 check("trang chủ: không còn mục Danh mục sản phẩm (cat-title / category-grid)", !indexHtml.includes('id="cat-title"') && !indexHtml.includes('id="category-grid"'));
-check("trang chủ: Trang chủ vẫn active tĩnh", indexHtml.includes('data-nav="home" class="active"'));
+check("trang chủ: không còn link Trang chủ (mục này đã bỏ khỏi nav, logo vẫn link index)", !indexHtml.includes('data-nav="home"'));
 const catHtmlFile = readFileSync(join(root, "danh-muc.html"), "utf8");
 const detailHtmlFile = readFileSync(join(root, "san-pham.html"), "utf8");
 check("trang danh mục / chi tiết: không active tĩnh, JS tự set Sản phẩm active", !catHtmlFile.includes('class="active"') && !detailHtmlFile.includes('class="active"'));
@@ -133,6 +133,62 @@ check("app.js drawer trượt + vuốt mở/đóng (touch, mép phải 30px)", a
 check("app.js không còn render lưới danh mục trang chủ", !appJs.includes("category-grid"));
 check("app.js tự set active cho menu theo trang", appJs.includes("setNavActive") && appJs.includes('data-nav="products"') && appJs.includes('data-nav="home"'));
 check("app.js có nút hamburger + đóng menu bằng Esc / bấm ra ngoài", appJs.includes("nav-toggle") && appJs.includes("Escape") && appJs.includes("closeNavMenu"));
+
+/* ---------- 1b. Style Điệp Xuân (A–D) + 8 trang chính sách (gói 26/11/2026) ---------- */
+const POLICY_PAGES = [
+  ["chinh-sach-van-chuyen.html", "Chính sách vận chuyển"],
+  ["chinh-sach-doi-tra.html", "Chính sách đổi trả"],
+  ["chinh-sach-bao-hanh.html", "Chính sách bảo hành"],
+  ["chinh-sach-bao-mat.html", "Chính sách bảo mật"],
+  ["dieu-khoan-dich-vu.html", "Điều khoản dịch vụ"],
+  ["huong-dan-mua-hang.html", "Hướng dẫn mua hàng"],
+  ["cau-hoi-thuong-gap.html", "Câu hỏi thường gặp"],
+  ["he-thong-cua-hang.html", "Hệ thống cửa hàng"],
+];
+for (const [file, title] of POLICY_PAGES) {
+  check("chính sách: tồn tại " + file, existsSync(join(root, file)));
+  const src = existsSync(join(root, file)) ? readFileSync(join(root, file), "utf8") : "";
+  check("chính sách: " + file + " có tiêu đề đúng", src.includes("<title>" + title + " | DreamLand Điệp Xuân</title>"));
+  check("chính sách: " + file + " có breadcrumb về trang chủ", src.includes('<a href="index.html">Trang chủ</a>'));
+  check("chính sách: " + file + " có khối Cần hỗ trợ (Zalo + Gọi)", src.includes("Cần hỗ trợ?") && src.includes("zalo.me/0911825151") && src.includes("zalo.me/0363089565") && src.includes("tel:0911825151") && src.includes("tel:0363089565"));
+  check("chính sách: " + file + " dùng chung style.css?v=4", src.includes('assets/css/style.css?v=4'));
+  check("chính sách: " + file + " không nhắc thêm vào giỏ / thanh toán online", !/thêm vào giỏ/i.test(src) && !/thanh toán online/i.test(src));
+  check("chính sách: " + file + " không có giá sale / Tiết kiệm", !/% giảm/i.test(src) && !/Tiết kiệm/i.test(src));
+}
+for (const f of files.filter((x) => x.endsWith(".html"))) {
+  const src = readFileSync(f, "utf8");
+  const rel = f.replace(root + "/", "");
+  check("footer đủ 8 link chính sách: " + rel, POLICY_PAGES.every(([file]) => src.includes('href="' + file + '"')));
+  check("footer có GPDKKD 3100349022: " + rel, src.includes("GPDKKD: 3100349022"));
+  check("footer có địa chỉ xưởng Thuận Đức: " + rel, src.includes("Khu làng nghề Thuận Đức, Thuận Hoà, Thuận Đức, Đồng Hới, Quảng Bình"));
+  check("header có logo Điệp Xuân tự host: " + rel, src.includes('src="assets/img/logo-diep-xuan.png"'));
+}
+check("logo Điệp Xuân tự host tồn tại (assets/img/logo-diep-xuan.png)", existsSync(join(root, "assets/img/logo-diep-xuan.png")));
+check("CSS có màu nhấn đỏ nâu Điệp Xuân #A93C11 + tông sáng cho nền tối", css.includes("--rust: #A93C11") && css.includes("--rust-light: #E86A3C"));
+check("CSS chữ ĐIỆP XUÂN dùng tông sáng trên nền navy", css.includes(".brand-lockup em") && css.includes("color: var(--rust-light)"));
+check("CSS giữ rule .brand > span:last-child ẩn tagline trên mobile (fix PR #7)", css.includes(".brand > span:last-child { display: none; }"));
+check("CSS không còn vàng gold ở các chỗ mang dấu ấn Điệp Xuân", !css.includes("var(--gold)"));
+check("trang chủ có slogan Chăn ga gối đệm cao cấp!", indexHtml.includes("Chăn ga gối đệm cao cấp!"));
+
+/* ---------- 1c. Header gọn (gói 26/11/2026 — lấy mẫu DreamLand làm chuẩn) ---------- */
+for (const f of files.filter((x) => x.endsWith(".html"))) {
+  const src = readFileSync(f, "utf8");
+  const rel = f.replace(root + "/", "");
+  const nav = (src.match(/<nav class="main-nav"[\s\S]*?<\/nav>/) || [""])[0];
+  check("header gọn: nav chỉ còn Sản phẩm (không Trang chủ/Liên hệ/Showroom): " + rel,
+    !nav.includes("Trang chủ") && !nav.includes("Liên hệ") && !nav.includes("Showroom") && nav.includes('data-nav="products"') && nav.includes("Sản phẩm"));
+  check("header gọn: không còn nút Zalo rời trong drawer: " + rel, !src.includes('class="drawer-zalo"') && !nav.includes("data-zalo-buttons"));
+  check("header gọn: logo vẫn link về trang chủ: " + rel, src.includes('<a class="brand" href="index.html">'));
+  check("header gọn: giữ ô tìm kiếm header về danh-muc.html?q=: " + rel, src.includes('class="header-search"') && src.includes('action="danh-muc.html"'));
+}
+const hero = (indexHtml.match(/<section class="hero">[\s\S]*?<\/section>/) || [""])[0];
+check("header gọn: hero không còn ô tìm kiếm", !indexHtml.includes("hero-search") && !hero.includes("<form"));
+check("header gọn: hero không còn nút Zalo rời", !hero.includes("data-zalo-buttons"));
+check("header gọn: vẫn giữ nút Zalo ở showroom (id lien-he) + footer trang chủ", indexHtml.includes('id="lien-he" data-zalo-buttons') && indexHtml.includes('Zalo bán hàng: <span data-zalo-buttons></span>'));
+check("header gọn: CSS không còn .hero-search / .drawer-zalo", !css.includes(".hero-search") && !css.includes(".drawer-zalo"));
+check("header gọn: CSS có kiểu nút liên hệ nổi (tròn trắng 60px, góc dưới-phải, z-index dưới header)", css.includes(".contact-fab") && css.includes("width: 60px") && css.includes("position: fixed") && css.includes("z-index: 15") && css.includes("body.fab-hidden .contact-fab"));
+check("header gọn: app.js chèn nút nổi 1 lần, đủ 4 lựa chọn", appJs.includes("mountContactFab") && appJs.includes("contactFabHTML") && appJs.includes("https://zalo.me/0911825151") && appJs.includes("https://zalo.me/0363089565") && appJs.includes("tel:0911825151") && appJs.includes("tel:0363089565"));
+check("header gọn: app.js ẩn nút nổi khi drawer mở", appJs.includes("fab-hidden"));
 
 /* ---------- 2. DOM shim + chạy thử app.js ---------- */
 const ENTITY_MAP = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
@@ -269,6 +325,23 @@ const categories = JSON.parse(readFileSync(join(root, "data/categories.json"), "
   check("trang chủ: thẻ dùng đường dẫn tự lưu assets/img/products/", feat.includes('src="assets/img/products/'));
   check("trang chủ: thẻ có data-fallback về ảnh nguồn", feat.includes('data-fallback="https://dreamland.vn/'));
   check("trang chủ: không có link ra ngoài trong HTML render", !/href="https?:\/\/(?!zalo\.me)/.test(feat));
+}
+
+/* Nút liên hệ nổi: markup đủ 4 lựa chọn đúng thứ tự */
+{
+  const { sandbox } = makeEnv({ page: "home", search: "" });
+  await tick(300);
+  const fabHtml = sandbox.window.DreamLandUI.contactFabHTML();
+  const i1 = fabHtml.indexOf("https://zalo.me/0911825151");
+  const i2 = fabHtml.indexOf("https://zalo.me/0363089565");
+  const i3 = fabHtml.indexOf("tel:0911825151");
+  const i4 = fabHtml.indexOf("tel:0363089565");
+  check("nút nổi: đủ 4 lựa chọn đúng thứ tự Zalo 0911 → Zalo 0363 → Gọi 0911 → Gọi 0363",
+    i1 > -1 && i2 > i1 && i3 > i2 && i4 > i3 &&
+    fabHtml.includes("Nhắn Zalo 0911825151") && fabHtml.includes("Nhắn Zalo 0363 089 565") &&
+    fabHtml.includes("Gọi 0911 825 151") && fabHtml.includes("Gọi 0363 089 565"));
+  check("nút nổi: không có Messenger/Facebook", !/messenger|facebook/i.test(fabHtml));
+  check("nút nổi: có nút chính tròn + nút đóng ✕", fabHtml.includes("contact-fab-main") && fabHtml.includes("fab-close"));
 }
 
 /* Địa điểm: render từ site.json */

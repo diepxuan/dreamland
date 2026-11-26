@@ -12,7 +12,11 @@
   --bg: #faf8f4;
   --card: #ffffff;
   --red: #b3261e;
-  --gold: #f5b301;
+  --rust: #A93C11;
+  /* Đỏ nâu Điệp Xuân: #A93C11 dùng trên nền sáng; trên nền navy #10233a
+     nó chỉ đạt tương phản 2,5:1 nên chữ trên nền tối dùng tông sáng cùng
+     họ --rust-light (4,95:1 với navy, đo 26/11/2026). */
+  --rust-light: #E86A3C;
   --green: #1e7d32;
   --radius: 12px;
 }
@@ -50,9 +54,13 @@ a { color: var(--brand); }
   position: relative; /* neo panel dropdown: cạnh phải panel trùng mép phải header */
 }
 .brand { color: #fff; text-decoration: none; line-height: 1.2; }
-.brand-lockup { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+/* Monogram "Đ" đứng cạnh chữ DREAMLAND / ĐIỆP XUÂN: logo đặt trên chip
+   trắng bo tròn (đỏ gỉ sắt trên nền navy khó đọc — xem README). */
+.brand-lockup { display: flex; flex-direction: row; align-items: center; gap: 10px; }
+.brand-logo { width: 34px; height: auto; flex: 0 0 auto; background: #fff; border-radius: 9px; padding: 2px; }
+.brand-text { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
 .brand strong { display: block; font-size: 21px; letter-spacing: .5px; }
-.brand-lockup em { font-style: normal; font-size: 14px; font-weight: 700; color: var(--gold); letter-spacing: 1px; }
+.brand-lockup em { font-style: normal; font-size: 14px; font-weight: 700; color: var(--rust-light); letter-spacing: 1px; }
 .brand span { font-size: 12.5px; color: #cdd8e4; }
 .main-nav { display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto; }
 .main-nav a {
@@ -101,6 +109,61 @@ a { color: var(--brand); }
   cursor: pointer;
 }
 
+/* ---------- Nút liên hệ nổi (1 nút, mẫu đã xác minh trên site gốc) ---------- */
+/* 1 nút tròn trắng ~60px góc dưới-phải, hiện mọi trang; bấm mở chồng
+   dọc 4 lựa chọn phía trên + nút chính đổi thành ✕ để đóng. z-index 15:
+   thấp hơn header (z-index 20) nên khi drawer mobile mở, backdrop
+   (z-index 30 trong header) che nút này; JS còn ẩn hẳn khi drawer mở
+   (body.fab-hidden) để nút không chặn chạm. Lightbox (z-index 200)
+   cũng phủ lên trên nút. */
+.contact-fab { position: fixed; right: 16px; bottom: 16px; z-index: 15; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.contact-fab-main {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 0;
+  background: #fff;
+  color: var(--navy);
+  box-shadow: 0 4px 16px rgba(16, 35, 58, .35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.contact-fab-main .fab-close { display: none; font-size: 26px; line-height: 1; }
+.contact-fab.open .contact-fab-main .fab-open { display: none; }
+.contact-fab.open .contact-fab-main .fab-close { display: block; }
+.contact-fab-options { display: none; flex-direction: column; align-items: flex-end; gap: 10px; }
+.contact-fab.open .contact-fab-options { display: flex; }
+.contact-fab-opt { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.contact-fab-opt .fab-label {
+  background: #fff;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(16, 35, 58, .25);
+  white-space: nowrap;
+}
+.contact-fab-opt .fab-ic {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  box-shadow: 0 2px 10px rgba(16, 35, 58, .3);
+  flex: 0 0 auto;
+}
+.fab-ic-zalo { background: var(--zalo); }
+.fab-ic-call { background: var(--green); }
+body.fab-hidden .contact-fab { display: none; }
+
 /* ---------- Menu Sản phẩm (dropdown) ---------- */
 /* Tham khảo menu "Sản phẩm" của trang nguồn DreamLand (tiêu đề nhóm +
    danh sách danh mục con theo cột) và mega-menu của Everon (các nhóm
@@ -112,7 +175,7 @@ a { color: var(--brand); }
    dùng ở mobile, desktop ẩn. Số lượng + dấu ▾ trong tiêu đề nhóm
    cũng chỉ hiện ở mobile (accordion); desktop tiêu đề nhóm là link
    thường, các con luôn hiện. */
-.drawer-head, .drawer-zalo, .nav-backdrop { display: none; }
+.drawer-head, .nav-backdrop { display: none; }
 .nav-group-title .nav-count, .nav-group-title .nav-caret { display: none; }
 .nav-group-all { display: none; }
 .nav-drop-link .caret { font-size: 11px; display: inline-block; transition: transform .2s ease; }
@@ -190,33 +253,9 @@ a { color: var(--brand); }
 .hero h1 { margin: 0 0 8px; font-size: 30px; line-height: 1.25; }
 .hero p { margin: 6px 0; color: #cdd8e4; max-width: 640px; }
 .hero .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-.hero-search { display: flex; gap: 8px; margin-top: 18px; max-width: 560px; }
-.hero-search input {
-  flex: 1;
-  min-width: 0;
-  padding: 11px 14px;
-  border: 1px solid rgba(255, 255, 255, .4);
-  border-radius: 8px;
-  font: inherit;
-  font-size: 15px;
-  background: rgba(255, 255, 255, .12);
-  color: #fff;
-}
-.hero-search input::placeholder { color: #b9c8d8; }
-.hero-search button {
-  padding: 11px 18px;
-  border: 0;
-  border-radius: 8px;
-  background: var(--zalo);
-  color: #fff;
-  font: inherit;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-}
 .hero-stats { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 24px; }
 .hero-stats div { min-width: 110px; }
-.hero-stats b { display: block; font-size: 24px; color: var(--gold); }
+.hero-stats b { display: block; font-size: 24px; color: var(--rust-light); }
 .hero-stats span { font-size: 13.5px; color: #cdd8e4; }
 
 /* ---------- Sections ---------- */
@@ -501,6 +540,30 @@ main { padding: 8px 0 40px; }
 .site-footer h2 { color: #fff; font-size: 17px; margin: 0 0 6px; }
 .site-footer p { margin: 4px 0; }
 .site-footer a { color: #9fc6e8; }
+/* Footer: logo Điệp Xuân + nhóm link chính sách (gói 26/11/2026). */
+.footer-brand { display: flex; align-items: center; gap: 10px; }
+.footer-brand h2 { margin: 0; }
+.footer-logo { width: 32px; height: auto; flex: 0 0 auto; background: #fff; border-radius: 8px; padding: 2px; }
+.footer-policy { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 14px 0 0; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .2); }
+.footer-policy a { color: #9fc6e8; text-decoration: none; }
+.footer-policy a:hover { color: #fff; text-decoration: underline; }
+
+/* ---------- Trang chính sách ---------- */
+.policy { max-width: 860px; }
+.policy h2 { font-size: 20px; margin: 28px 0 8px; }
+.policy h3 { font-size: 16.5px; margin: 20px 0 6px; }
+.policy p, .policy li { font-size: 15px; }
+.policy ul, .policy ol { padding-left: 22px; }
+.policy li { margin: 4px 0; }
+.policy table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14.5px; }
+.policy th, .policy td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+.policy th { background: #f2efe8; }
+.support-box { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--rust); border-radius: 10px; padding: 14px 16px; margin: 28px 0 4px; }
+.support-box h2 { margin: 0 0 6px; font-size: 17px; }
+.support-box p { margin: 4px 0; }
+.faq-item { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.faq-item h3 { margin: 0 0 6px; }
+.faq-item p { margin: 4px 0; }
 
 /* ---------- Desktop ---------- */
 @media (min-width: 720px) {
@@ -580,11 +643,14 @@ main { padding: 8px 0 40px; }
      vàng 3px bên trái, không còn nền pill xám (cả khi "Sản phẩm" mở). */
   .main-nav a { padding: 10px 8px 10px 11px; font-size: 14px; border-left: 3px solid transparent; border-radius: 0; }
   .main-nav a:hover { background: transparent; color: #fff; }
-  .main-nav a.active, .nav-drop.open > .nav-drop-link { background: transparent; color: #fff; font-weight: 700; border-left-color: var(--gold); }
+  .main-nav a.active, .nav-drop.open > .nav-drop-link { background: transparent; color: #fff; font-weight: 700; border-left-color: var(--rust-light); }
   /* Đầu drawer: logo + nút ✕, dính trên cùng khi cuộn drawer. */
   .drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 8px 12px 11px; position: sticky; top: 0; background: var(--navy); z-index: 1; }
+  .drawer-brand { display: flex; align-items: center; gap: 8px; }
+  .drawer-brand .brand-logo { width: 30px; }
+  .drawer-text { display: flex; flex-direction: column; align-items: flex-start; }
   .drawer-brand strong { display: block; font-size: 21px; letter-spacing: .5px; color: #fff; }
-  .drawer-brand em { font-style: normal; font-size: 14px; font-weight: 700; color: var(--gold); letter-spacing: 1px; }
+  .drawer-brand em { font-style: normal; font-size: 14px; font-weight: 700; color: var(--rust-light); letter-spacing: 1px; }
   .drawer-close {
     display: inline-flex;
     align-items: center;
@@ -600,9 +666,6 @@ main { padding: 8px 0 40px; }
     line-height: 1;
     cursor: pointer;
   }
-  /* Cuối drawer: 2 nút Zalo (điền từ site.json qua data-zalo-buttons). */
-  .drawer-zalo { display: flex; flex-direction: column; gap: 8px; padding: 14px 11px 0; margin-top: 8px; border-top: 1px solid rgba(255, 255, 255, .2); }
-  .drawer-zalo .btn { text-align: center; }
   /* Dropdown "Sản phẩm" thành accordion inline trong drawer: chỉ mở
      bằng tap (class .open), không mở bằng hover như desktop. */
   .nav-drop { position: static; }
@@ -636,8 +699,8 @@ main { padding: 8px 0 40px; }
   .nav-group.open .nav-group-title { font-weight: 800; }
   .nav-group.open .nav-group-title .nav-caret { transform: rotate(180deg); }
   .main-nav .nav-group-links a { color: #dbe6f2; }
-  .nav-group.open .nav-group-all { display: block; color: var(--gold); font-weight: 700; }
-  .main-nav .nav-all { color: var(--gold); border-top-color: rgba(255, 255, 255, .2); }
+  .nav-group.open .nav-group-all { display: block; color: var(--rust-light); font-weight: 700; }
+  .main-nav .nav-all { color: var(--rust-light); border-top-color: rgba(255, 255, 255, .2); }
   .header-call { display: none; }
 }
 

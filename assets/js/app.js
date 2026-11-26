@@ -407,6 +407,64 @@
     });
   }
 
+  /* ---------- nút liên hệ nổi (1 nút, mẫu đã xác minh) ---------- */
+  /* 1 nút tròn trắng góc dưới-phải, hiện mọi trang (kể cả 8 trang chính
+     sách, vì mọi trang đều chạy app.js). Bấm mở chồng dọc 4 lựa chọn
+     theo đúng thứ tự: Nhắn Zalo 0911825151, Nhắn Zalo 0363 089 565,
+     Gọi 0911 825 151, Gọi 0363 089 565. Không thêm Messenger/Facebook.
+     Chèn bằng JS để 1 chỗ duy nhất phục vụ cả 11 trang; chèn ngay khi
+     init (trước khi tải dữ liệu) nên vẫn hiện cả khi dữ liệu lỗi.
+     Nút Zalo trên trang chi tiết (kèm tên + mã SP) là CTA mua hàng,
+     giữ nguyên, không liên quan tới nút này. */
+  var CONTACT_FAB_OPTIONS = [
+    { kind: "zalo", href: "https://zalo.me/0911825151", label: "Nhắn Zalo 0911825151", icon: "Z", iclass: "fab-ic-zalo" },
+    { kind: "zalo", href: "https://zalo.me/0363089565", label: "Nhắn Zalo 0363 089 565", icon: "Z", iclass: "fab-ic-zalo" },
+    { kind: "call", href: "tel:0911825151", label: "Gọi 0911 825 151", icon: "☎", iclass: "fab-ic-call" },
+    { kind: "call", href: "tel:0363089565", label: "Gọi 0363 089 565", icon: "☎", iclass: "fab-ic-call" }
+  ];
+  function contactFabHTML() {
+    var opts = CONTACT_FAB_OPTIONS.map(function (o) {
+      return '<a class="contact-fab-opt" href="' + o.href + '"' +
+        (o.kind === "zalo" ? ' target="_blank" rel="noopener"' : "") +
+        '><span class="fab-label">' + o.label + '</span><span class="fab-ic ' + o.iclass + '">' + o.icon + "</span></a>";
+    }).join("");
+    return '<div class="contact-fab-options">' + opts + "</div>" +
+      '<button class="contact-fab-main" id="contact-fab-main" type="button" aria-label="Liên hệ" aria-expanded="false">' +
+      '<svg class="fab-open" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.9 2 11.8c0 2.7 1.4 5.1 3.7 6.7L5 21l3.5-1.8c1.1.3 2.3.5 3.5.5 5.5 0 10-3.9 10-8.9S17.5 3 12 3z"/></svg>' +
+      '<span class="fab-close" aria-hidden="true">✕</span></button>';
+  }
+  function mountContactFab() {
+    if (!document.body || !document.body.appendChild || !document.createElement) return;
+    if (document.getElementById("contact-fab")) return;
+    var fab = document.createElement("div");
+    fab.className = "contact-fab";
+    fab.setAttribute("id", "contact-fab");
+    fab.innerHTML = contactFabHTML();
+    document.body.appendChild(fab);
+    var main = fab.querySelector ? fab.querySelector(".contact-fab-main") : null;
+    function setOpen(open) {
+      if (fab.classList) {
+        if (open) fab.classList.add("open");
+        else fab.classList.remove("open");
+      }
+      if (main) main.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    if (main) {
+      main.addEventListener("click", function () {
+        setOpen(!(fab.classList && fab.classList.contains("open")));
+      });
+    }
+    if (document.addEventListener) {
+      document.addEventListener("click", function (e) {
+        var t = e.target;
+        if (fab.classList && fab.classList.contains("open") && t && t.closest && !t.closest(".contact-fab")) setOpen(false);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e && e.key === "Escape") setOpen(false);
+      });
+    }
+  }
+
   /* ---------- menu header: dropdown Sản phẩm ---------- */
   /* Tham khảo menu "Sản phẩm" của trang nguồn DreamLand (tiêu đề nhóm +
      danh sách danh mục con theo cột) và mega-menu của Everon (các
@@ -548,6 +606,12 @@
       if (nav) { nav.style.transform = ""; nav.style.transition = ""; }
       var bd = document.getElementById("nav-backdrop");
       if (bd) bd.style.opacity = "";
+      /* Drawer mở thì ẩn nút liên hệ nổi (nút đã bị backdrop che nhờ
+         z-index thấp hơn header, ẩn hẳn để chắc chắn không chặn chạm). */
+      if (document.body && document.body.classList) {
+        if (open) document.body.classList.add("fab-hidden");
+        else document.body.classList.remove("fab-hidden");
+      }
       if (open) {
         header.classList.add("nav-open");
         if (toggle) {
@@ -1116,6 +1180,7 @@
     var page = document.body ? document.body.getAttribute("data-page") : null;
     setNavActive(page);
     bindNavMenu();
+    mountContactFab();
     loadData()
       .then(function (data) {
         bindSite(data.site);
@@ -1154,6 +1219,7 @@
     fallbackSrc: fallbackSrc,
     variantAxes: variantAxes,
     matchVariant: matchVariant,
+    contactFabHTML: contactFabHTML,
     findProduct: findProduct,
     productsInCategory: productsInCategory,
     subtreeIds: subtreeIds,
