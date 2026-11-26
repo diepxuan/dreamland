@@ -108,7 +108,15 @@ a { color: var(--brand); }
    nhóm nhiều con chia nhiều cột). Panel giới hạn chiều cao và cuộn dọc
    để không vượt viewport. */
 .nav-toggle { display: none; }
-.nav-drop-link .caret { font-size: 11px; }
+/* Đầu drawer (logo + nút ✕), cuối drawer (nút Zalo), backdrop: chỉ
+   dùng ở mobile, desktop ẩn. Số lượng + dấu ▾ trong tiêu đề nhóm
+   cũng chỉ hiện ở mobile (accordion); desktop tiêu đề nhóm là link
+   thường, các con luôn hiện. */
+.drawer-head, .drawer-zalo, .nav-backdrop { display: none; }
+.nav-group-title .nav-count, .nav-group-title .nav-caret { display: none; }
+.nav-group-all { display: none; }
+.nav-drop-link .caret { font-size: 11px; display: inline-block; transition: transform .2s ease; }
+.nav-drop.open .nav-drop-link .caret { transform: rotate(180deg); }
 .nav-panel {
   display: none;
   position: absolute;
@@ -495,15 +503,14 @@ main { padding: 8px 0 40px; }
 
 /* ---------- Header gọn tới tablet nhỏ (≤720px) ---------- */
 @media (max-width: 720px) {
-  /* Header gọn lại: trước đây cao 189px (máy 390px) / 229px (máy 360px)
-     và ~192px ở khổ 600px, chiếm 22–27% màn hình vì brand 3 dòng + ô
-     tìm kiếm 1 hàng riêng + menu 1 hàng riêng, lại còn sticky. Nay chỉ
-     còn 2 hàng: hàng 1 là logo + ô tìm kiếm, hàng 2 là menu trượt ngang
-     1 dòng. Áp tới 720px (trước đây chỉ ≤480px nên khổ 600px vẫn cao). */
-  .site-header .wrap { gap: 8px 12px; padding-top: 8px; padding-bottom: 8px; }
+  /* Header 2 hàng: hàng 1 logo + nút ☰ (căn phải), hàng 2 ô tìm kiếm
+     full-width. Trước đây cả 4 thứ nhồi 1 hàng nên ô tìm kiếm bị cắt
+     còn "Tìm tên", gần như không dùng được. */
+  .site-header .wrap { gap: 8px 12px; padding-top: 8px; padding-bottom: 8px; z-index: 45; } /* header (logo + ☰) nằm trên backdrop */
   .brand > span:last-child { display: none; } /* chỉ ẩn tagline dài, giữ logo chữ (selector cũ .brand span ẩn cả .brand-lockup nên mobile mất logo) */
-  .header-search { flex: 1 1 0; max-width: none; min-width: 0; } /* co được để nút ☰ vừa hàng 1 */
   .nav-toggle {
+    order: 2;
+    margin-left: auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -518,13 +525,74 @@ main { padding: 8px 0 40px; }
     line-height: 1;
     cursor: pointer;
   }
-  /* Nav thành panel dọc, mặc định ẩn, bấm ☰ mới mở. */
-  .main-nav { display: none; flex: 1 1 100%; margin-left: 0; flex-direction: column; flex-wrap: nowrap; overflow: visible; gap: 0; }
-  .main-nav.open { display: flex; max-height: calc(100vh - 110px); overflow-y: auto; } /* nav mở cuộn trong khung, không đội header sticky vượt viewport */
+  .header-search { order: 3; flex: 1 1 100%; max-width: none; min-width: 0; } /* hàng 2 full-width */
+  .header-search input, .header-search button { font-size: 16px; } /* iOS không tự zoom khi chạm vào ô tìm */
+  /* Drawer trượt từ phải (kiểu Facebook / app Muse): nav thành drawer
+     fixed neo mép phải, rộng min(320px, 85vw), cao 100dvh, mặc định
+     trượt hẳn ra ngoài (translateX 102% + ẩn), mở bằng class nav-open
+     trên .site-header; kéo theo tay thì JS ghi đè transform inline. */
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility 0s .3s;
+    z-index: 30;
+  }
+  .site-header.nav-open .nav-backdrop, .site-header.nav-dragging .nav-backdrop { opacity: 1; visibility: visible; transition: opacity .3s ease; }
+  .main-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(320px, 85vw);
+    height: 100vh;
+    height: 100dvh;
+    margin-left: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    overflow-y: auto;
+    background: var(--navy);
+    transform: translateX(102%);
+    visibility: hidden;
+    transition: transform .3s ease, visibility 0s .3s;
+    z-index: 40;
+    padding: 0 0 16px;
+  }
+  .site-header.nav-open .main-nav, .site-header.nav-dragging .main-nav { visibility: visible; transition: transform .3s ease; }
+  .site-header.nav-open .main-nav { transform: translateX(0); }
   .main-nav::-webkit-scrollbar { display: none; }
-  .main-nav a { padding: 10px 8px; font-size: 14px; }
-  /* Dropdown thành accordion inline trong panel dọc: chỉ mở bằng tap
-     (class .open), không mở bằng hover như desktop. */
+  /* Hàng menu: padding đều nhau; active nhẹ — chữ trắng đậm + vạch
+     vàng 3px bên trái, không còn nền pill xám (cả khi "Sản phẩm" mở). */
+  .main-nav a { padding: 10px 8px 10px 11px; font-size: 14px; border-left: 3px solid transparent; border-radius: 0; }
+  .main-nav a:hover { background: transparent; color: #fff; }
+  .main-nav a.active, .nav-drop.open > .nav-drop-link { background: transparent; color: #fff; font-weight: 700; border-left-color: var(--gold); }
+  /* Đầu drawer: logo + nút ✕, dính trên cùng khi cuộn drawer. */
+  .drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 8px 12px 11px; position: sticky; top: 0; background: var(--navy); z-index: 1; }
+  .drawer-brand strong { display: block; font-size: 21px; letter-spacing: .5px; color: #fff; }
+  .drawer-brand em { font-style: normal; font-size: 14px; font-weight: 700; color: var(--gold); letter-spacing: 1px; }
+  .drawer-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  /* Cuối drawer: 2 nút Zalo (điền từ site.json qua data-zalo-buttons). */
+  .drawer-zalo { display: flex; flex-direction: column; gap: 8px; padding: 14px 11px 0; margin-top: 8px; border-top: 1px solid rgba(255, 255, 255, .2); }
+  .drawer-zalo .btn { text-align: center; }
+  /* Dropdown "Sản phẩm" thành accordion inline trong drawer: chỉ mở
+     bằng tap (class .open), không mở bằng hover như desktop. */
   .nav-drop { position: static; }
   .nav-panel {
     position: static;
@@ -542,9 +610,21 @@ main { padding: 8px 0 40px; }
   .nav-drop:hover .nav-panel, .nav-drop:focus-within .nav-panel { display: none; }
   .nav-drop.open .nav-panel, .nav-drop.open:hover .nav-panel, .nav-drop.open:focus-within .nav-panel { display: grid; }
   .nav-group--wide { grid-column: auto; }
-  .nav-group--wide .nav-group-links { display: flex; flex-direction: column; }
-  .main-nav .nav-group-title { color: #fff; border-bottom-color: rgba(255, 255, 255, .2); }
+  /* Accordion 2 tầng: mặc định chỉ hiện 6 tiêu đề nhóm; bấm 1 tiêu đề
+     mới mở các mục con của nhóm đó (class .open trên .nav-group),
+     các nhóm khác đóng. (Cần cả dòng cho .nav-group--wide vì quy tắc
+     desktop `.nav-group--wide .nav-group-links { display: grid }`
+     có độ ưu tiên cao hơn và sẽ thắng quy tắc ẩn chung.) */
+  .nav-group-links { display: none; }
+  .nav-group--wide .nav-group-links { display: none; }
+  .nav-group.open .nav-group-links { display: flex; flex-direction: column; }
+  .main-nav .nav-group-title { display: flex; align-items: center; gap: 6px; color: #fff; border-bottom-color: rgba(255, 255, 255, .2); padding-right: 12px; /* chừa chỗ cho caret ▾, không dính mép phải drawer (quy tắc gốc đặt padding: 6px 0 4px) */ }
+  .main-nav .nav-group-title .nav-count { display: inline; color: #b9c8d8; font-weight: 600; }
+  .main-nav .nav-group-title .nav-caret { display: inline-block; margin-left: auto; transition: transform .2s ease; }
+  .nav-group.open .nav-group-title { font-weight: 800; }
+  .nav-group.open .nav-group-title .nav-caret { transform: rotate(180deg); }
   .main-nav .nav-group-links a { color: #dbe6f2; }
+  .nav-group.open .nav-group-all { display: block; color: var(--gold); font-weight: 700; }
   .main-nav .nav-all { color: var(--gold); border-top-color: rgba(255, 255, 255, .2); }
   .header-call { display: none; }
 }
