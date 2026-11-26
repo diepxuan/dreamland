@@ -88,6 +88,19 @@ check("CSS active mobile nhẹ: vạch đỏ nâu trái, không pill xám", css.
 check("CSS accordion mobile: nhóm con mặc định đóng, mở theo nhóm", css.includes(".nav-group-links { display: none; }") && css.includes(".nav-group.open .nav-group-links"));
 check("CSS dấu ▾ xoay khi mở (class .open)", css.includes("transform: rotate(180deg)") && css.includes(".nav-group.open .nav-group-title .nav-caret"));
 check("CSS dropdown Bộ sưu tập chia 3 cột, giới hạn chiều cao + cuộn dọc", css.includes(".nav-group--wide") && css.includes("max-height: calc(100vh - 90px)") && css.includes("overflow-y: auto"));
+/* Header 3 dòng ở medium (tablet 721–1023px): hồi quy 26/11/2026 — ở dải
+   này header là 1 flex row wrap nên nút Gọi rớt hàng trước (~1023px),
+   rồi nav rớt (~800px), margin-left: auto làm nav đổi bên khi rớt
+   (đo thật: 768px nav + Gọi cùng hàng 2 bên phải; 820px Gọi lẻ loi
+   hàng 2 bên trái; cao header nhảy 81px ↔ 136px). Fix khóa 3 hàng cố
+   định: hàng 1 logo + Gọi, hàng 2 tìm kiếm full-width, hàng 3 nav
+   ngang, không drawer. */
+const med = (css.match(/@media \(min-width: 721px\) and \(max-width: 1023px\) \{[\s\S]*?\n\}/) || [""])[0];
+check("CSS header medium 3 dòng (721–1023px): có media query dải medium", med.length > 0);
+check("CSS header medium: hàng 1 logo (order 1) + Gọi showroom (order 2, margin-left auto)", med.includes(".brand { order: 1; }") && med.includes(".header-call { order: 2; margin-left: auto; }"));
+check("CSS header medium: hàng 2 tìm kiếm full-width (order 3, flex 1 1 100%, max-width none)", med.includes(".header-search { order: 3; flex: 1 1 100%; max-width: none; }"));
+check("CSS header medium: hàng 3 nav ngang full-width, không drawer (order 4, ☰ ẩn)", med.includes(".main-nav { order: 4; flex: 1 1 100%; margin-left: 0; }") && med.includes(".nav-toggle { display: none; }"));
+check("CSS header medium: ô tìm kiếm 16px (iPad không tự zoom khi chạm)", med.includes(".header-search input, .header-search button { font-size: 16px; }"));
 check("CSS có kiểu nút biến thể mờ (disabled)", css.includes(".opt:disabled"));
 check("CSS có lưới 2 địa điểm", css.includes(".loc-grid") && css.includes(".loc-card"));
 check("footer mới: CSS có .footer-bottom + .footer-policy h3/ul/li (giống Everon)", css.includes(".footer-bottom") && css.includes(".footer-policy h3") && css.includes(".footer-policy ul") && css.includes(".footer-policy li"));
@@ -161,13 +174,14 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
   const src = readFileSync(f, "utf8");
   const rel = f.replace(root + "/", "");
   check("footer đủ 8 link chính sách: " + rel, POLICY_PAGES.every(([file]) => src.includes('href="' + file + '"')));
-  check("footer có GPDKKD 3100349022: " + rel, src.includes("GPDKKD: 3100349022"));
-  check("footer có địa chỉ xưởng Thuận Đức: " + rel, src.includes("Khu làng nghề Thuận Đức, Thuận Hoà, Thuận Đức, Đồng Hới, Quảng Bình"));
+  check("footer có GPDKKD 3100349022 (dòng cuối footer-bottom): " + rel, src.includes("GPDKKD 3100349022"));
+  check("footer có địa chỉ xưởng Thuận Đức (dòng cuối footer-bottom): " + rel, src.includes("Địa chỉ: Khu làng nghề Thuận Đức, Đồng Hới, Quảng Trị."));
   /* Footer mới (gói 26/11/2026): 2 dòng cuối + bỏ dòng Zalo bán hàng + nav chính sách giống Everon. */
   const footer = (src.match(/<footer[\s\S]*?<\/footer>/) || [""])[0];
   check("footer mới: có 2 dòng cuối (©2026 + GPDKKD + Liên hệ 241): " + rel, footer.includes('class="footer-bottom"') && footer.includes("©2026 Công ty TNHH Điệp Xuân. GPDKKD 3100349022. Địa chỉ: Khu làng nghề Thuận Đức, Đồng Hới, Quảng Trị.") && footer.includes("Liên hệ: 241 Trần Hưng Đạo, Nam Lý 2, Đồng Hới, Quảng Trị."));
-  check("footer mới: không còn dòng Zalo bán hàng, Zalo vẫn còn ở mục liên hệ: " + rel, !footer.includes("Zalo bán hàng") && src.includes("data-zalo-buttons"));
+  check("footer mới: không còn dòng Zalo bán hàng: " + rel, !footer.includes("Zalo bán hàng"));
   check("footer chính sách giống Everon: h3 + ul/li đủ 8 link: " + rel, footer.includes("<h3>Chính sách &amp; hỗ trợ</h3>") && footer.includes("<ul>") && (footer.match(/<li><a href="/g) || []).length === 8);
+  check("dọn dẹp: footer không còn dòng GPDKKD/Xưởng cũ: " + rel, !footer.includes("Xưởng: Khu làng nghề"));
   check("footer bố cục giống Everon: .footer-grid chứa div thương hiệu + nav chính sách: " + rel, footer.includes('<div class="footer-grid">') && footer.indexOf('class="footer-grid"') < footer.indexOf('class="footer-brand"') && footer.indexOf('class="footer-brand"') < footer.indexOf('class="footer-policy"') && footer.includes("      </nav>\n    </div>\n    <div class=\"footer-bottom\">"));
   check("header có logo Điệp Xuân tự host: " + rel, src.includes('src="assets/img/logo-diep-xuan.png"'));
 }
@@ -179,6 +193,8 @@ check("CSS không còn vàng gold ở các chỗ mang dấu ấn Điệp Xuân",
 check("trang chủ có slogan Chăn ga gối đệm cao cấp!", indexHtml.includes("Chăn ga gối đệm cao cấp!"));
 
 /* ---------- 1c. Header gọn (gói 26/11/2026 — lấy mẫu DreamLand làm chuẩn) ---------- */
+/* Dọn dẹp 26/11/2026: xóa dòng GPDKKD/Xưởng thừa ở footer (đã có trong footer-bottom)
+   + xóa 2 nút Zalo ở panel showroom (div cta-row #lien-he) — các check liên quan cập nhật theo. */
 for (const f of files.filter((x) => x.endsWith(".html"))) {
   const src = readFileSync(f, "utf8");
   const rel = f.replace(root + "/", "");
@@ -188,12 +204,14 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
   check("header gọn: không còn nút Zalo rời trong drawer: " + rel, !src.includes('class="drawer-zalo"') && !nav.includes("data-zalo-buttons"));
   check("header gọn: logo vẫn link về trang chủ: " + rel, src.includes('<a class="brand" href="index.html">'));
   check("header gọn: giữ ô tìm kiếm header về danh-muc.html?q=: " + rel, src.includes('class="header-search"') && src.includes('action="danh-muc.html"'));
+  const showroomSec = (src.match(/<section class="showroom"[\s\S]*?<\/section>/) || [""])[0];
+  check("dọn dẹp: panel showroom không còn nút Zalo (không còn data-zalo-buttons trong section showroom): " + rel, !showroomSec.includes("data-zalo-buttons") && showroomSec.includes('id="showroom"'));
 }
 const hero = (indexHtml.match(/<section class="hero">[\s\S]*?<\/section>/) || [""])[0];
 check("header gọn: hero không còn ô tìm kiếm", !indexHtml.includes("hero-search") && !hero.includes("<form"));
 check("header gọn: hero không còn nút Zalo rời", !hero.includes("data-zalo-buttons"));
 check("xóa nút xem SP: hero không còn nút \"Xem tất cả sản phẩm\"", !hero.includes("Xem tất cả sản phẩm"));
-check("header gọn: vẫn giữ nút Zalo ở showroom (id lien-he); dòng Zalo bán hàng ở footer đã bỏ", indexHtml.includes('id="lien-he" data-zalo-buttons') && !indexHtml.includes("Zalo bán hàng"));
+check("dọn dẹp: đã xóa 2 nút Zalo ở panel showroom trang chủ (không còn div cta-row #lien-he); dòng Zalo bán hàng ở footer đã bỏ", !indexHtml.includes('id="lien-he"') && !indexHtml.includes("Zalo bán hàng") && indexHtml.includes('id="showroom"'));
 check("header gọn: CSS không còn .hero-search / .drawer-zalo", !css.includes(".hero-search") && !css.includes(".drawer-zalo"));
 check("header gọn: CSS có kiểu nút liên hệ nổi (tròn trắng 60px, góc dưới-phải, z-index dưới header)", css.includes(".contact-fab") && css.includes("width: 60px") && css.includes("position: fixed") && css.includes("z-index: 15") && css.includes("body.fab-hidden .contact-fab"));
 check("header gọn: app.js chèn nút nổi 1 lần, đủ 4 lựa chọn", appJs.includes("mountContactFab") && appJs.includes("contactFabHTML") && appJs.includes("https://zalo.me/0911825151") && appJs.includes("https://zalo.me/0363089565") && appJs.includes("tel:0911825151") && appJs.includes("tel:0363089565"));
