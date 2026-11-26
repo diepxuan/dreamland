@@ -184,6 +184,7 @@ for (const f of files.filter((x) => x.endsWith(".html"))) {
 const hero = (indexHtml.match(/<section class="hero">[\s\S]*?<\/section>/) || [""])[0];
 check("header gọn: hero không còn ô tìm kiếm", !indexHtml.includes("hero-search") && !hero.includes("<form"));
 check("header gọn: hero không còn nút Zalo rời", !hero.includes("data-zalo-buttons"));
+check("xóa nút xem SP: hero không còn nút \"Xem tất cả sản phẩm\"", !hero.includes("Xem tất cả sản phẩm"));
 check("header gọn: vẫn giữ nút Zalo ở showroom (id lien-he) + footer trang chủ", indexHtml.includes('id="lien-he" data-zalo-buttons') && indexHtml.includes('Zalo bán hàng: <span data-zalo-buttons></span>'));
 check("header gọn: CSS không còn .hero-search / .drawer-zalo", !css.includes(".hero-search") && !css.includes(".drawer-zalo"));
 check("header gọn: CSS có kiểu nút liên hệ nổi (tròn trắng 60px, góc dưới-phải, z-index dưới header)", css.includes(".contact-fab") && css.includes("width: 60px") && css.includes("position: fixed") && css.includes("z-index: 15") && css.includes("body.fab-hidden .contact-fab"));
