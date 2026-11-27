@@ -189,7 +189,12 @@ body.fab-hidden .contact-fab { display: none; }
    với chữ. Chỉ desktop (min-width: 721px): mobile (≤720px) drawer cần
    .nav-drop là block để panel accordion xếp dưới link, không cạnh link. */
 @media (min-width: 721px) {
-  .nav-drop { display: flex; align-items: center; }
+  /* Cầu hover: panel neo vào .wrap nên mép trên panel cách mép dưới link
+     10px (tablet) tới ~25px (desktop) — di chuột xuống panel là rời khỏi
+     .nav-drop, :hover mất, panel sập ngay. Kéo hộp .nav-drop dài xuống
+     30px bằng padding (margin âm bù lại để chiều cao header không đổi)
+     để vùng hover liền mạch từ link tới panel. */
+  .nav-drop { display: flex; align-items: center; padding-bottom: 30px; margin-bottom: -30px; }
   .nav-drop-link { display: inline-flex; align-items: center; }
 }
 /* ---------- Header 3 dòng ở màn hình medium (tablet 721–1023px) ---------- */
@@ -233,6 +238,14 @@ body.fab-hidden .contact-fab { display: none; }
 /* Desktop: mở bằng hover / focus-within (chuột, bàn phím) và bằng
    click toggle qua class .open (màn cảm ứng). */
 .nav-drop:hover .nav-panel, .nav-drop:focus-within .nav-panel, .nav-drop.open .nav-panel { display: grid; }
+/* Màn cảm ứng (hover: none): panel chỉ mở bằng class .open (JS toggle),
+   không mở bằng :hover/:focus-within — iOS không chuyển focus sang link
+   khi chạm và chạm đầu có thể chỉ bật :hover mà nuốt mất click, nên
+   .open không chốt được và panel biến mất dưới tay. */
+@media (hover: none) {
+  .nav-drop:hover .nav-panel, .nav-drop:focus-within .nav-panel { display: none; }
+  .nav-drop.open .nav-panel { display: grid; }
+}
 .nav-group { min-width: 0; }
 .nav-group--wide { grid-column: 1 / -1; }
 .nav-group--wide .nav-group-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 22px; }
