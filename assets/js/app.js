@@ -1043,7 +1043,7 @@
         ["Mã sản phẩm", esc(p.sku || p.id)],
         ["Danh mục", leaf ? '<a href="' + esc(categoryUrl(leaf.id)) + '">' + esc(leaf.name) + "</a>" : '<span class="missing">chưa có trên nguồn</span>'],
         ["Kích thước", sizesText ? esc(sizesText) : '<span class="missing">chưa có trên nguồn</span>'],
-        ["Chất liệu", attrs.material ? esc(attrs.material) : '<span class="missing">chưa có trên nguồn</span>'],
+        ["Chất liệu", attrs.material ? esc(attrs.material) : '<span class="missing">N/A</span>'],
         ["Màu sắc", (attrs.colors || []).length ? esc(attrs.colors.join(" / ")) : '<span class="missing">chưa có trên nguồn</span>'],
         ["Họa tiết", attrs.pattern_type ? esc(attrs.pattern_type + (attrs.pattern ? " — " + attrs.pattern : "")) : '<span class="missing">chưa có trên nguồn</span>'],
         ["Xuất xứ", attrs.origin ? esc(attrs.origin) : '<span class="missing">chưa có trên nguồn</span>']
