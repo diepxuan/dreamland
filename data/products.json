@@ -103059,11 +103059,11 @@
         "size": "120 x 190",
         "set_type": "Độ Dày 21 cm",
         "price": {
-          "amount": 626000,
+          "amount": 6260000,
           "currency": "VND"
         },
         "compare_at_price": {
-          "amount": 626000,
+          "amount": 6260000,
           "currency": "VND"
         },
         "discount_percent": 0,
@@ -103329,11 +103329,11 @@
       }
     ],
     "price": {
-      "amount": 626000,
+      "amount": 4430000,
       "currency": "VND"
     },
     "compare_at_price": {
-      "amount": 626000,
+      "amount": 4430000,
       "currency": "VND"
     },
     "discount_percent": 0,
@@ -103341,9 +103341,9 @@
     "source": {
       "site": "dreamland.vn",
       "url": "https://dreamland.vn/san-pham/dem-bong-nano-chan-mat",
-      "updated_at": "2026-11-25"
+      "updated_at": "2026-11-26"
     },
-    "synced_at": "2026-11-25T11:53:27.675Z",
+    "synced_at": "2026-11-26T10:37:05.862Z",
     "status": "active"
   },
   {
