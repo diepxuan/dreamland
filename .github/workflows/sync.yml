@@ -18,9 +18,11 @@
 #   6. peter-evans/create-pull-request — mở PR để DUYỆT THỦ CÔNG, KHÔNG tự merge.
 #      Action chỉ mở PR khi có thay đổi thật (không có thay đổi thì không làm gì).
 #
-# Lịch: hằng ngày 03:00 giờ Việt Nam (20:00 UTC). Chủ nhật (giờ Việt Nam)
-# quét TOÀN BỘ; các ngày khác quét tăng dần theo modified.
-# Chạy tay: Actions > Sync catalog > Run workflow, tick full_scan nếu muốn quét toàn bộ.
+# Lịch: 4 lần/năm — 03:00 giờ Việt Nam ngày 1/1, 1/4, 1/7, 1/10.
+# Cron chạy theo giờ UTC nên ghi 20:00 UTC ngày 31/12, 31/3, 30/6, 30/9
+# (= 03:00 VN ngày hôm sau). Mỗi lần chạy theo lịch đều quét TOÀN BỘ.
+# Chạy tay: Actions > Sync catalog > Run workflow (tăng dần, tick full_scan
+# nếu muốn quét toàn bộ).
 #
 # Lần chạy đầu tiên (sau khi PR dữ liệu merge): tải toàn bộ ~1.246 ảnh
 # (~150-210 MB WebP, thu nhỏ 1200px) và mở 1 PR lớn chứa cả dữ liệu + ảnh.
@@ -29,7 +31,8 @@ name: Sync catalog from dreamland.vn
 
 on:
   schedule:
-    - cron: "0 20 * * *" # 03:00 giờ Việt Nam, hằng ngày
+    - cron: "0 20 31 12,3 *" # 03:00 VN ngày 1/1, 1/4 (20:00 UTC 31/12, 31/3)
+    - cron: "0 20 30 6,9 *" # 03:00 VN ngày 1/7, 1/10 (20:00 UTC 30/6, 30/9)
   workflow_dispatch:
     inputs:
       full_scan:
@@ -75,12 +78,12 @@ jobs:
       - name: Xác định quét toàn bộ hay tăng dần
         id: mode
         run: |
-          # Chủ nhật tính theo giờ Việt Nam: 03:00 +07 Chủ nhật = 20:00 UTC Thứ bảy,
-          # nên phải lấy thứ theo múi giờ Asia/Ho_Chi_Minh, không dùng giờ UTC.
-          DOW_VN=$(TZ=Asia/Ho_Chi_Minh date +%u)
-          if [ "$DOW_VN" = "7" ] || [ "${{ inputs.full_scan }}" = "true" ]; then
+          # Lịch quý (1/1, 1/4, 1/7, 1/10 lúc 03:00 VN): mỗi lần chạy theo lịch
+          # đều quét TOÀN BỘ để bắt mọi thay đổi trong 3 tháng (kể cả thay đổi
+          # mà `modified` bỏ sót). Chạy tay: tăng dần, trừ khi tick full_scan.
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.full_scan }}" = "true" ]; then
             echo "full=true" >> "$GITHUB_OUTPUT"
-            echo "Quét TOÀN BỘ (Chủ nhật / chạy tay yêu cầu full_scan)."
+            echo "Quét TOÀN BỘ (chạy theo lịch quý / chạy tay yêu cầu full_scan)."
           else
             echo "full=false" >> "$GITHUB_OUTPUT"
             echo "Quét tăng dần (chỉ SP có modified đổi hoặc SP mới)."
